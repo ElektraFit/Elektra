@@ -1,5 +1,5 @@
-# Elektra
-Elektra, a web application that offers a personalized fitness experience for all.
+# ElektraFit
+ElektraFit, a web application that offers a personalized fitness experience for all.
 
 ## Overview
 ElektraFit is a fitness website that offers gym memberships and classes. It offers a personalized experience that allows users to create their accounts, securely log in, pay for memberships and classes as well as receive relevant information in that regard.  

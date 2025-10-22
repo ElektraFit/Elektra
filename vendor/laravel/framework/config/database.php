@@ -66,7 +66,11 @@ return [
         ],
 
         'mariadb' => [
+<<<<<<< Updated upstream:vendor/laravel/framework/config/database.php
             'driver' => 'mariadb',
+=======
+            'driver' => 'mysql', 
+>>>>>>> Stashed changes:config/database.php
             'url' => env('DB_URL'),
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),

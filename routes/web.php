@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
+use App\Mail\OtpMail;
 
 Route::get('/', function () {
     return view('hero');
@@ -33,10 +34,13 @@ Route::post('/login', function (Request $request) {
     Session::put('otp_email', $request->email);
     Session::put('otp_expires', now()->addMinutes(5));
     
-    // Send OTP email (in a real app, you'd use a proper mail service)
-    // For now, we'll just store it in session
-    
-    return redirect()->route('otp.verify')->with('status', 'OTP sent to your email');
+    // Send OTP email
+    try {
+        Mail::to($request->email)->send(new OtpMail($otp));
+        return redirect()->route('otp.verify')->with('status', 'OTP sent to your email');
+    } catch (\Exception $e) {
+        return back()->withErrors(['email' => 'Failed to send OTP. Please try again.']);
+    }
 })->name('login.submit');
 
 Route::get('/register', function () {
@@ -46,7 +50,7 @@ Route::get('/register', function () {
 Route::post('/register', function (Request $request) {
     $request->validate([
         'name' => 'required|string|max:255',
-        'email' => 'required|email',
+        'email' => 'required|email|unique:users,email',
         'password' => 'required|min:8|confirmed',
     ]);
     
@@ -64,7 +68,13 @@ Route::post('/register', function (Request $request) {
     Session::put('otp_expires', now()->addMinutes(5));
     Session::put('otp_type', 'registration');
     
-    return redirect()->route('otp.verify')->with('status', 'OTP sent to your email for verification');
+    // Send OTP email
+    try {
+        Mail::to($request->email)->send(new OtpMail($otp, $request->name));
+        return redirect()->route('otp.verify')->with('status', 'OTP sent to your email for verification');
+    } catch (\Exception $e) {
+        return back()->withErrors(['email' => 'Failed to send OTP. Please try again.']);
+    }
 })->name('register.submit');
 
 // OTP routes
@@ -102,12 +112,17 @@ Route::post('/otp/verify', function (Request $request) {
         // Complete registration
         $registrationData = Session::get('registration_data');
         
-        // In a real app, you'd create the user here
-        // User::create($registrationData);
-        
-        Session::forget(['otp', 'otp_email', 'otp_expires', 'otp_type', 'registration_data']);
-        
-        return redirect()->route('homepage.success')->with('status', 'Registration successful!');
+        try {
+            // Create the user in the database
+            \App\Models\User::create($registrationData);
+            
+            Session::forget(['otp', 'otp_email', 'otp_expires', 'otp_type', 'registration_data']);
+            
+            return redirect()->route('homepage.success')->with('status', 'Registration successful!');
+        } catch (\Exception $e) {
+            Session::forget(['otp', 'otp_email', 'otp_expires', 'otp_type']);
+            return redirect()->route('register')->withErrors(['email' => 'Registration failed. Email may already exist.']);
+        }
     } else {
         // Complete login
         $loginAttempt = Session::get('login_attempt');

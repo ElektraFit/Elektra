@@ -20,6 +20,23 @@
             align-items: center;
             justify-content: center;
             position: relative;
+            overflow: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 191, 255, 0.15) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
         
         .background-image {
@@ -29,26 +46,30 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            opacity: 0.3;
+            opacity: 0.2;
+            filter: blur(2px);
         }
         
         .overlay {
             position: absolute;
             inset: 0;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.6);
         }
         
         .otp-container {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
-            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 32px;
+            padding: 2.5rem;
             width: 100%;
-            max-width: 400px;
+            max-width: 440px;
             position: relative;
             z-index: 10;
             text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37), 
+                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
         }
         
         .logo {
@@ -101,20 +122,24 @@
         
         input[type="email"], input[type="text"] {
             width: 100%;
-            padding: 0.75rem;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.1);
+            padding: 0.9rem 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             color: white;
             font-size: 1rem;
-            transition: border-color 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             text-align: center;
         }
         
         input[type="email"]:focus, input[type="text"]:focus {
             outline: none;
-            border-color: #00bfff;
-            box-shadow: 0 0 10px rgba(0, 191, 255, 0.3);
+            border-color: rgba(0, 191, 255, 0.4);
+            background: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 4px 16px rgba(0, 191, 255, 0.2);
+            transform: translateY(-1px);
         }
         
         input::placeholder {
@@ -122,27 +147,34 @@
         }
         
         .otp-input {
-            font-size: 1.5rem;
-            letter-spacing: 0.5rem;
-            font-weight: 600;
+            font-size: 1.8rem;
+            letter-spacing: 0.8rem;
+            font-weight: 700;
+            font-family: 'Orbitron', monospace;
+            text-shadow: 0 0 10px rgba(0, 191, 255, 0.3);
         }
         
         .btn-verify {
             width: 100%;
-            padding: 0.75rem;
-            background: linear-gradient(45deg, #00bfff, #0080ff);
+            padding: 0.9rem;
+            background: linear-gradient(135deg, rgba(0, 191, 255, 0.25), rgba(0, 128, 255, 0.25));
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
             color: white;
-            border: none;
-            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 16px;
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 32px rgba(0, 191, 255, 0.25);
         }
         
         .btn-verify:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0, 191, 255, 0.3);
+            transform: translateY(-2px) scale(1.01);
+            box-shadow: 0 12px 40px rgba(0, 191, 255, 0.4);
+            background: linear-gradient(135deg, rgba(0, 191, 255, 0.35), rgba(0, 128, 255, 0.35));
+            border-color: rgba(255, 255, 255, 0.25);
         }
         
         .status-message {

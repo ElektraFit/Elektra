@@ -3,6 +3,9 @@
 Thumbs.db
 desktop.ini
 
+# Local redirect file (specific to individual setups)
+/index.php
+
 # Environment files (keep .env.example tracked)
 .env
 .env.*

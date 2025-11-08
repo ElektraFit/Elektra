@@ -27,7 +27,7 @@
     ></div>
     
     <!-- Dark overlay for text readability -->
-    <div class="absolute inset-0 bg-black/85"></div>
+    <div class="absolute inset-0 bg-black/80"></div>
     
     <!-- Electric visual effects for brand theme -->
     <div class="absolute inset-0">
@@ -68,12 +68,6 @@
         <p class="hero-sub">
           Experience the future of fitness with cutting-edge technology, expert guidance, and an electric atmosphere that powers your transformation.
         </p>
-
-        {{-- Call-to-action buttons: Primary and secondary actions --}}
-        <div class="hero-ctas">
-          <a class="btn-primary" href="#">Power Up Now</a>
-          <a class="btn-outline" href="#">See The Energy</a>
-        </div>
 
         {{-- Social proof: Statistics that build trust --}}
         <ul class="hero-stats" role="list" aria-label="site stats">

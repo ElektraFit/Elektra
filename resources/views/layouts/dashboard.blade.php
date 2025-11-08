@@ -40,6 +40,24 @@
             document.getElementById('sidebar').classList.toggle('collapsed');
         }
 
+        // Typing animation for dashboard welcome
+        document.addEventListener('DOMContentLoaded', function() {
+            const typedTextElement = document.getElementById('typed-text');
+            if (typedTextElement) {
+                const displayName = typedTextElement.getAttribute('data-name') || 'Member';
+                let charIndex = 0;
+                
+                function typeWriter() {
+                    if (charIndex < displayName.length) {
+                        typedTextElement.textContent += displayName.charAt(charIndex);
+                        charIndex++;
+                        setTimeout(typeWriter, 100);
+                    }
+                }
+                typeWriter();
+            }
+        });
+
         @yield('scripts')
     </script>
 </body>

@@ -6,36 +6,11 @@
 
 @section('sidebar-nav')
     <ul>
-        <li>
-            <a href="#" class="active">
-                <span class="nav-icon">📊</span>
-                <span class="nav-text">Dashboard</span>
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <span class="nav-icon">👥</span>
-                <span class="nav-text">My Clients</span>
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <span class="nav-icon">📅</span>
-                <span class="nav-text">Schedule</span>
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <span class="nav-icon">💪</span>
-                <span class="nav-text">Classes</span>
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <span class="nav-icon">⚙️</span>
-                <span class="nav-text">Settings</span>
-            </a>
-        </li>
+        <x-nav-item href="#" icon="📊" label="Dashboard" :active="true" />
+        <x-nav-item href="#" icon="👥" label="My Clients" />
+        <x-nav-item href="#" icon="📅" label="Schedule" />
+        <x-nav-item href="#" icon="💪" label="Classes" />
+        <x-nav-item href="#" icon="⚙️" label="Settings" />
     </ul>
 @endsection
 
@@ -52,52 +27,20 @@
 @section('content')
     <div class="welcome-section instructor-welcome">
         <h1 class="welcome-title">
-            <span id="typed-text"></span><span class="cursor"></span>
+            <span id="typed-text" data-name="{{ session('instructor_name') ?? 'Instructor' }}"></span><span class="cursor"></span>
         </h1>
         <p class="welcome-subtitle">Here's your teaching overview</p>
     </div>
 
     <div class="stats-grid">
-        <div class="stat-card instructor-stat-card">
-            <div class="stat-icon">👥</div>
-            <div class="stat-value">24</div>
-            <div class="stat-label">Active Clients</div>
-        </div>
-        <div class="stat-card instructor-stat-card">
-            <div class="stat-icon">📅</div>
-            <div class="stat-value">8</div>
-            <div class="stat-label">Classes This Week</div>
-        </div>
-        <div class="stat-card instructor-stat-card">
-            <div class="stat-icon">⭐</div>
-            <div class="stat-value">4.9</div>
-            <div class="stat-label">Average Rating</div>
-        </div>
-        <div class="stat-card instructor-stat-card">
-            <div class="stat-icon">🏆</div>
-            <div class="stat-value">156</div>
-            <div class="stat-label">Total Sessions</div>
-        </div>
+        <x-dashboard-stat-card icon="👥" value="24" label="Active Clients" :instructor="true" />
+        <x-dashboard-stat-card icon="📅" value="8" label="Classes This Week" :instructor="true" />
+        <x-dashboard-stat-card icon="⭐" value="4.9" label="Average Rating" :instructor="true" />
+        <x-dashboard-stat-card icon="🏆" value="156" label="Total Sessions" :instructor="true" />
     </div>
 
     <div class="content-card" style="border-color: rgba(138, 43, 226, 0.2);">
         <h2 class="card-title" style="color: #8a2be2;">Upcoming Sessions</h2>
         <p style="color: rgba(255, 255, 255, 0.6);">No sessions scheduled yet. Check back later!</p>
     </div>
-@endsection
-
-@section('scripts')
-    const instructorName = "{{ session('instructor_name') ?? 'Instructor' }}";
-    const typedTextElement = document.getElementById('typed-text');
-    let charIndex = 0;
-
-    function typeWriter() {
-        if (charIndex < instructorName.length) {
-            typedTextElement.textContent += instructorName.charAt(charIndex);
-            charIndex++;
-            setTimeout(typeWriter, 100);
-        }
-    }
-
-    window.addEventListener('load', typeWriter);
 @endsection

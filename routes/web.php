@@ -107,14 +107,22 @@ Route::post('/otp/verify', function (Request $request) {
     
     // OTP verified successfully
     $otpType = Session::get('otp_type', 'login');
+    $userName = null;
     
     if ($otpType === 'registration') {
         // Complete registration
         $registrationData = Session::get('registration_data');
+        $userName = Session::get('registration_data')['name'] ?? 'Member';
         
         try {
             // Create the user in the database
-            \App\Models\User::create($registrationData);
+            $user = \App\Models\User::create($registrationData);
+            
+            // Log the user in
+            Auth::login($user);
+            
+            // Store user ID in session for persistence
+            Session::put('user_id', $user->id);
             
             Session::forget(['otp', 'otp_email', 'otp_expires', 'otp_type', 'registration_data']);
             
@@ -126,9 +134,18 @@ Route::post('/otp/verify', function (Request $request) {
     } else {
         // Complete login
         $loginAttempt = Session::get('login_attempt');
+        $email = Session::get('otp_email');
         
-        // In a real app, you'd authenticate the user here
-        // Auth::attempt($loginAttempt);
+        // Get user from database
+        $user = \App\Models\User::where('email', $email)->first();
+        
+        if ($user) {
+            // Log the user in
+            Auth::login($user);
+            
+            // Store user ID in session for persistence
+            Session::put('user_id', $user->id);
+        }
         
         Session::forget(['otp', 'otp_email', 'otp_expires', 'otp_type', 'login_attempt']);
         
@@ -138,5 +155,17 @@ Route::post('/otp/verify', function (Request $request) {
 
 // Homepage success route
 Route::get('/homepage/success', function () {
-    return view('homepagesuccess');
+    // Get userName from authenticated user or session
+    $userName = 'Member';
+    
+    if (Auth::check()) {
+        $userName = Auth::user()->name;
+    } elseif (Session::has('user_id')) {
+        $user = \App\Models\User::find(Session::get('user_id'));
+        if ($user) {
+            $userName = $user->name;
+        }
+    }
+    
+    return view('homepagesuccess', ['userName' => $userName]);
 })->name('homepage.success');

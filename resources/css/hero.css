@@ -145,8 +145,11 @@ body {
 
 /* Navigation with Glassmorphism */
 .site-nav {
-    position: relative;
-    z-index: 10;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -155,7 +158,7 @@ body {
     backdrop-filter: blur(20px) saturate(180%);
     -webkit-backdrop-filter: blur(20px) saturate(180%);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 0 0 24px 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 
@@ -473,4 +476,372 @@ body {
     color: rgba(255, 255, 255, 0.85);
     line-height: 1.6;
     font-size: 1rem;
+}
+
+/* ========================================
+   ADDITIONAL SECTIONS STYLES
+   ======================================== */
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* Full screen sections */
+.full-section {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    position: relative;
+    scroll-margin-top: 0;
+}
+
+#services {
+    background: #1f2937;
+}
+
+#membership {
+    background: #111827;
+}
+
+#about {
+    background: #1a1a1a;
+}
+
+.section-content {
+    max-width: 1200px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+}
+
+.section-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: #ffffff;
+    text-shadow: 0 0 20px rgba(0, 191, 255, 0.5);
+    margin-bottom: 1rem;
+}
+
+.section-subtitle {
+    font-size: 1.25rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 3rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Membership Cards */
+.membership-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.membership-card {
+    background: rgba(10, 14, 39, 0.7);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 191, 255, 0.2);
+    border-radius: 20px;
+    padding: 2.5rem 2rem;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.membership-card.popular {
+    border-color: rgba(0, 191, 255, 0.6);
+    box-shadow: 0 0 30px rgba(0, 191, 255, 0.2);
+}
+
+.membership-card.popular::before {
+    content: 'Most Popular';
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #00bfff;
+    color: #0a0e27;
+    padding: 0.5rem 1.5rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.membership-card:hover {
+    transform: translateY(-10px);
+    border-color: rgba(0, 191, 255, 0.6);
+    box-shadow: 0 0 40px rgba(0, 191, 255, 0.3);
+}
+
+.membership-card h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2rem;
+    color: #ffffff;
+    margin-bottom: 1.5rem;
+}
+
+.membership-price {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #00bfff;
+    text-shadow: 0 0 20px rgba(0, 191, 255, 0.5);
+    margin-bottom: 0.5rem;
+}
+
+.membership-price span {
+    font-size: 1.25rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.membership-description {
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 2rem;
+    font-size: 0.95rem;
+}
+
+.membership-features {
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0;
+    text-align: left;
+}
+
+.membership-features li {
+    color: rgba(255, 255, 255, 0.8);
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.membership-features li::before {
+    content: '✓';
+    color: #00bfff;
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+
+.membership-button {
+    width: 100%;
+    padding: 1rem 2rem;
+    background: rgba(0, 191, 255, 0.1);
+    border: 2px solid #00bfff;
+    border-radius: 12px;
+    color: #00bfff;
+    font-weight: 600;
+    font-family: 'Orbitron', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.membership-button:hover {
+    background: #00bfff;
+    color: #0a0e27;
+    box-shadow: 0 0 30px rgba(0, 191, 255, 0.5);
+    transform: translateY(-2px);
+}
+
+.membership-card.popular .membership-button {
+    background: #00bfff;
+    color: #0a0e27;
+}
+
+.membership-card.popular .membership-button:hover {
+    background: rgba(0, 191, 255, 0.8);
+}
+
+/* Services Grid - Updated */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.service-card {
+    background: rgba(26, 26, 26, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 3rem 2rem;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    text-align: center;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    border-color: rgba(0, 191, 255, 0.4);
+    box-shadow: 0 10px 40px rgba(0, 191, 255, 0.2);
+}
+
+.service-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    margin-bottom: 1.5rem;
+    color: #00bfff;
+}
+
+.service-icon svg {
+    width: 48px;
+    height: 48px;
+}
+
+.service-card h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 1rem;
+}
+
+.service-card p {
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+/* About Section */
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    margin-top: 3rem;
+    text-align: left;
+}
+
+@media (max-width: 968px) {
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+}
+
+.about-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 1.5rem;
+}
+
+.about-text {
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+}
+
+.about-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+}
+
+.about-stat-card {
+    background: rgba(26, 26, 26, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.about-stat-card:hover {
+    border-color: rgba(0, 191, 255, 0.4);
+    transform: translateY(-5px);
+}
+
+.stat-icon {
+    color: #00bfff;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.875rem;
+}
+
+.about-card {
+    background: rgba(26, 26, 26, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.about-card:hover {
+    border-color: rgba(0, 191, 255, 0.4);
+}
+
+.about-card h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 1rem;
+}
+
+.about-card p {
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.7;
+    font-size: 0.95rem;
+}
+
+/* Instructor Login Section */
+.instructor-login-section {
+    margin-top: 4rem;
+    text-align: center;
+    padding: 2rem;
+    background: rgba(138, 43, 226, 0.05);
+    border: 1px solid rgba(138, 43, 226, 0.2);
+    border-radius: 16px;
+}
+
+.instructor-login-text {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.125rem;
+    margin-bottom: 1rem;
+}
+
+.instructor-login-btn {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    background: rgba(138, 43, 226, 0.1);
+    border: 2px solid #8a2be2;
+    border-radius: 12px;
+    color: #8a2be2;
+    font-weight: 600;
+    font-family: 'Orbitron', sans-serif;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.instructor-login-btn:hover {
+    background: #8a2be2;
+    color: #ffffff;
+    box-shadow: 0 0 30px rgba(138, 43, 226, 0.5);
+    transform: translateY(-2px);
 }

@@ -1,0 +1,298 @@
+/* Common Authentication Page Styles */
+
+/* Base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #0f172a 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(0, 191, 255, 0.15) 0%, transparent 70%);
+    animation: rotate 20s linear infinite;
+}
+
+.overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+/* Container */
+.auth-container {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 32px;
+    padding: 2.5rem;
+    width: 100%;
+    position: relative;
+    z-index: 10;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37), 
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Logo Section */
+.auth-logo {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.auth-logo img {
+    height: 3rem;
+    width: 3rem;
+    filter: brightness(0) saturate(100%) invert(64%) sepia(100%) saturate(1000%) hue-rotate(170deg);
+    margin-bottom: 0.5rem;
+}
+
+.auth-logo h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    background: linear-gradient(to right, #00bfff, #1cb6d7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 0;
+}
+
+.auth-logo p {
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 0.5rem;
+}
+
+/* Form Elements */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-label {
+    display: block;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.form-input {
+    width: 100%;
+    padding: 0.9rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: white;
+    font-size: 1rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: rgba(0, 191, 255, 0.4);
+    background: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 4px 16px rgba(0, 191, 255, 0.2);
+    transform: translateY(-1px);
+}
+
+.form-input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* OTP Input */
+.otp-input {
+    font-size: 1.8rem;
+    letter-spacing: 0.8rem;
+    font-weight: 700;
+    font-family: 'Orbitron', monospace;
+    text-shadow: 0 0 10px rgba(0, 191, 255, 0.3);
+    text-align: center;
+}
+
+/* Checkbox */
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.checkbox-group input[type="checkbox"] {
+    margin-right: 0.5rem;
+}
+
+.checkbox-group label {
+    margin: 0;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Buttons */
+.btn-primary {
+    width: 100%;
+    padding: 0.9rem;
+    background: linear-gradient(135deg, rgba(0, 191, 255, 0.25), rgba(0, 128, 255, 0.25));
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 32px rgba(0, 191, 255, 0.25);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px) scale(1.01);
+    box-shadow: 0 12px 40px rgba(0, 191, 255, 0.4);
+    background: linear-gradient(135deg, rgba(0, 191, 255, 0.35), rgba(0, 128, 255, 0.35));
+    border-color: rgba(255, 255, 255, 0.25);
+}
+
+/* Links */
+.auth-links {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.auth-links a {
+    color: #00bfff;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.auth-links a:hover {
+    text-decoration: underline;
+}
+
+/* Status Messages */
+.status-message {
+    padding: 1rem;
+    border-radius: 16px;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+}
+
+.status-message.error {
+    background: rgba(255, 107, 107, 0.1);
+    border: 1px solid rgba(255, 107, 107, 0.3);
+    color: #ff6b6b;
+}
+
+.status-message.success {
+    background: rgba(81, 207, 102, 0.1);
+    border: 1px solid rgba(81, 207, 102, 0.3);
+    color: #51cf66;
+}
+
+/* OTP Specific */
+.otp-info {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.otp-email {
+    color: #00bfff;
+    font-weight: 600;
+}
+
+/* Instructor Variants */
+.instructor-container {
+    background: rgba(10, 14, 39, 0.85);
+    border: 1px solid rgba(138, 43, 226, 0.3);
+    box-shadow: 0 0 40px rgba(138, 43, 226, 0.2);
+}
+
+.instructor-logo h1 {
+    color: #8a2be2;
+    text-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
+    background: none;
+    -webkit-text-fill-color: #8a2be2;
+}
+
+.instructor-input {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(138, 43, 226, 0.3);
+}
+
+.instructor-input:focus {
+    border-color: #8a2be2;
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.3);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.btn-instructor {
+    background: #8a2be2;
+    border: none;
+    box-shadow: 0 0 40px rgba(138, 43, 226, 0.2);
+}
+
+.btn-instructor:hover {
+    background: #7a1fd2;
+    box-shadow: 0 0 30px rgba(138, 43, 226, 0.5);
+    transform: translateY(-2px);
+}
+
+.instructor-links a {
+    color: #8a2be2;
+}
+
+.instructor-icon {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 3rem;
+}
+
+.instructor-subtitle {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 2rem;
+    font-size: 0.95rem;
+}
+
+.back-link {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.back-link a {
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+.back-link a:hover {
+    color: #00bfff;
+}
+
+.optional-label {
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 400;
+    font-size: 0.85rem;
+}
+
+textarea.form-input {
+    resize: vertical;
+    min-height: 100px;
+}

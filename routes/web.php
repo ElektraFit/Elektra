@@ -55,7 +55,25 @@ Route::post('/logout', function () {
 Route::get('/instructor/login', fn() => view('instructor.login'))->name('instructor.login');
 Route::post('/instructor/login', [AuthController::class, 'instructorLogin'])->name('instructor.login.submit');
 
+// Multi-step instructor registration
 Route::get('/instructor/register', fn() => view('instructor.register'))->name('instructor.register');
+Route::post('/instructor/register/step1', [AuthController::class, 'instructorRegisterStep1'])->name('instructor.register.step1');
+
+Route::get('/instructor/register/step2', [AuthController::class, 'showInstructorRegisterStep2'])->name('instructor.register.step2.form');
+Route::post('/instructor/register/step2', [AuthController::class, 'instructorRegisterStep2'])->name('instructor.register.step2');
+
+Route::get('/instructor/register/step3', [AuthController::class, 'showInstructorRegisterStep3'])->name('instructor.register.step3.form');
+Route::post('/instructor/register/step3', [AuthController::class, 'instructorRegisterStep3'])->name('instructor.register.step3');
+
+Route::get('/instructor/register/step4', [AuthController::class, 'showInstructorRegisterStep4'])->name('instructor.register.step4.form');
+Route::post('/instructor/register/step4', [AuthController::class, 'instructorRegisterStep4'])->name('instructor.register.step4');
+
+Route::get('/instructor/register/step5', [AuthController::class, 'showInstructorRegisterStep5'])->name('instructor.register.step5.form');
+Route::post('/instructor/register/step5', [AuthController::class, 'instructorRegisterStep5'])->name('instructor.register.step5');
+
+Route::get('/instructor/register/complete', [AuthController::class, 'showInstructorRegisterComplete'])->name('instructor.register.complete');
+
+// Old single-step registration (keeping for backwards compatibility)
 Route::post('/instructor/register', [AuthController::class, 'instructorRegister'])->name('instructor.register.submit');
 
 Route::get('/instructor/otp', function () {

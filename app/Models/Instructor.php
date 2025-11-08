@@ -13,7 +13,9 @@ class Instructor extends Model
         'name',
         'email',
         'password',
+        'date_of_birth',
         'specialization',
+        'years_of_experience',
         'bio',
         'phone',
     ];

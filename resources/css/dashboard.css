@@ -287,50 +287,50 @@
 
 /* Instructor Dashboard Variants */
 .instructor-sidebar {
-    border-right: 1px solid rgba(138, 43, 226, 0.2);
-    box-shadow: 0 0 30px rgba(138, 43, 226, 0.1);
+    border-right: 1px solid rgba(168, 85, 247, 0.3);
+    box-shadow: 0 0 30px rgba(168, 85, 247, 0.15);
 }
 
 .instructor-sidebar .sidebar-brand h2 {
-    color: #8a2be2;
-    text-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
+    color: #a855f7;
+    text-shadow: 0 0 20px rgba(168, 85, 247, 0.6);
 }
 
 .instructor-sidebar .nav-icon {
-    color: rgba(138, 43, 226, 0.8);
+    color: rgba(168, 85, 247, 0.9);
 }
 
 .instructor-sidebar a:hover {
-    background: rgba(138, 43, 226, 0.1);
-    box-shadow: 0 0 15px rgba(138, 43, 226, 0.2);
+    background: rgba(168, 85, 247, 0.15);
+    box-shadow: 0 0 15px rgba(168, 85, 247, 0.3);
 }
 
 .instructor-sidebar a.active {
-    background: rgba(138, 43, 226, 0.2);
-    color: #8a2be2;
-    border: 1px solid rgba(138, 43, 226, 0.3);
+    background: rgba(168, 85, 247, 0.25);
+    color: #a855f7;
+    border: 1px solid rgba(168, 85, 247, 0.4);
 }
 
 .instructor-welcome .welcome-title {
-    color: #8a2be2;
-    text-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
+    color: #a855f7;
+    text-shadow: 0 0 20px rgba(168, 85, 247, 0.6);
 }
 
 .instructor-welcome .cursor {
-    background: #8a2be2;
+    background: #a855f7;
 }
 
 .instructor-stat-card {
-    border: 1px solid rgba(138, 43, 226, 0.2);
+    border: 1px solid rgba(168, 85, 247, 0.3);
 }
 
 .instructor-stat-card:hover {
-    border-color: rgba(138, 43, 226, 0.5);
-    box-shadow: 0 0 30px rgba(138, 43, 226, 0.2);
+    border-color: rgba(168, 85, 247, 0.6);
+    box-shadow: 0 0 30px rgba(168, 85, 247, 0.3);
 }
 
 .instructor-stat-card .stat-value {
-    color: #8a2be2;
+    color: #a855f7;
 }
 
 /* Logout Button */

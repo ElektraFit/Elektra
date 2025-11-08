@@ -168,7 +168,177 @@ class AuthController extends Controller
     }
     
     /**
-     * Instructor Registration
+     * Instructor Registration - Step 1 (Mandatory Fields)
+     */
+    public function instructorRegisterStep1(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:instructors,email',
+            'date_of_birth' => 'required|date',
+            'password' => 'required|min:8|confirmed',
+        ]);
+        
+        // Store step 1 data in session
+        Session::put('instructor_registration', [
+            'name' => $request->name,
+            'email' => $request->email,
+            'date_of_birth' => $request->date_of_birth,
+            'password' => bcrypt($request->password),
+        ]);
+        
+        return redirect()->route('instructor.register.step2.form');
+    }
+    
+    /**
+     * Show Step 2 Form
+     */
+    public function showInstructorRegisterStep2()
+    {
+        if (!Session::has('instructor_registration')) {
+            return redirect()->route('instructor.register');
+        }
+        return view('instructor.register-step2');
+    }
+    
+    /**
+     * Instructor Registration - Step 2 (Phone)
+     */
+    public function instructorRegisterStep2(Request $request)
+    {
+        if (!Session::has('instructor_registration')) {
+            return redirect()->route('instructor.register');
+        }
+        
+        $request->validate([
+            'phone' => 'nullable|string|max:20',
+        ]);
+        
+        // Add step 2 data to session
+        $data = Session::get('instructor_registration');
+        $data['phone'] = $request->phone;
+        Session::put('instructor_registration', $data);
+        
+        return redirect()->route('instructor.register.step3.form');
+    }
+    
+    /**
+     * Show Step 3 Form
+     */
+    public function showInstructorRegisterStep3()
+    {
+        if (!Session::has('instructor_registration')) {
+            return redirect()->route('instructor.register');
+        }
+        return view('instructor.register-step3');
+    }
+    
+    /**
+     * Instructor Registration - Step 3 (Specialization)
+     */
+    public function instructorRegisterStep3(Request $request)
+    {
+        if (!Session::has('instructor_registration')) {
+            return redirect()->route('instructor.register');
+        }
+        
+        $request->validate([
+            'specialization' => 'nullable|string|max:255',
+        ]);
+        
+        // Add step 3 data to session
+        $data = Session::get('instructor_registration');
+        $data['specialization'] = $request->specialization;
+        Session::put('instructor_registration', $data);
+        
+        return redirect()->route('instructor.register.step4.form');
+    }
+    
+    /**
+     * Show Step 4 Form
+     */
+    public function showInstructorRegisterStep4()
+    {
+        if (!Session::has('instructor_registration')) {
+            return redirect()->route('instructor.register');
+        }
+        return view('instructor.register-step4');
+    }
+    
+    /**
+     * Instructor Registration - Step 4 (Experience)
+     */
+    public function instructorRegisterStep4(Request $request)
+    {
+        if (!Session::has('instructor_registration')) {
+            return redirect()->route('instructor.register');
+        }
+        
+        $request->validate([
+            'years_of_experience' => 'nullable|string',
+        ]);
+        
+        // Add step 4 data to session
+        $data = Session::get('instructor_registration');
+        $data['years_of_experience'] = $request->years_of_experience;
+        Session::put('instructor_registration', $data);
+        
+        return redirect()->route('instructor.register.step5.form');
+    }
+    
+    /**
+     * Show Step 5 Form
+     */
+    public function showInstructorRegisterStep5()
+    {
+        if (!Session::has('instructor_registration')) {
+            return redirect()->route('instructor.register');
+        }
+        return view('instructor.register-step5');
+    }
+    
+    /**
+     * Instructor Registration - Step 5 (Bio) - Final Step
+     */
+    public function instructorRegisterStep5(Request $request)
+    {
+        if (!Session::has('instructor_registration')) {
+            return redirect()->route('instructor.register');
+        }
+        
+        $request->validate([
+            'bio' => 'nullable|string',
+        ]);
+        
+        // Add step 5 data to session
+        $data = Session::get('instructor_registration');
+        $data['bio'] = $request->bio;
+        
+        // Create the instructor
+        try {
+            $instructor = Instructor::create($data);
+            
+            // Clear registration session data
+            Session::forget('instructor_registration');
+            
+            // Show completion page
+            return redirect()->route('instructor.register.complete');
+        } catch (\Exception $e) {
+            Session::forget('instructor_registration');
+            return redirect()->route('instructor.register')->withErrors(['email' => 'Registration failed. Email may already exist.']);
+        }
+    }
+    
+    /**
+     * Show Registration Complete Page
+     */
+    public function showInstructorRegisterComplete()
+    {
+        return view('instructor.registration-complete');
+    }
+    
+    /**
+     * Instructor Registration (OLD - keeping for backwards compatibility)
      */
     public function instructorRegister(Request $request)
     {

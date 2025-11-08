@@ -14,7 +14,7 @@
             <h1>Become an Instructor</h1>
         </div>
         
-        <p class="instructor-subtitle">Join our team of elite fitness professionals</p>
+        <p class="instructor-subtitle">Step 1 of 5 - Basic Information</p>
 
         @if ($errors->any())
             <div class="error-message">
@@ -24,45 +24,35 @@
             </div>
         @endif
 
-        <form method="POST" action="{{ route('instructor.register.submit') }}">
+        <form method="POST" action="{{ route('instructor.register.step1') }}">
             @csrf
             
             <div class="form-group">
-                <label class="form-label">Full Name</label>
-                <input type="text" name="name" class="form-input instructor-input" value="{{ old('name') }}" required autofocus>
+                <label class="form-label">Full Name *</label>
+                <input type="text" name="name" class="form-input instructor-input" value="{{ old('name', session('instructor_registration.name')) }}" required autofocus>
             </div>
 
             <div class="form-group">
-                <label class="form-label">Email Address</label>
-                <input type="email" name="email" class="form-input instructor-input" value="{{ old('email') }}" required>
+                <label class="form-label">Email Address *</label>
+                <input type="email" name="email" class="form-input instructor-input" value="{{ old('email', session('instructor_registration.email')) }}" required>
             </div>
 
             <div class="form-group">
-                <label class="form-label">Phone Number <span class="optional-label">(optional)</span></label>
-                <input type="tel" name="phone" class="form-input instructor-input" value="{{ old('phone') }}">
+                <label class="form-label">Date of Birth *</label>
+                <input type="date" name="date_of_birth" class="form-input instructor-input" value="{{ old('date_of_birth', session('instructor_registration.date_of_birth')) }}" required>
             </div>
 
             <div class="form-group">
-                <label class="form-label">Specialization <span class="optional-label">(optional)</span></label>
-                <input type="text" name="specialization" class="form-input instructor-input" placeholder="e.g., Strength Training, Yoga, CrossFit" value="{{ old('specialization') }}">
-            </div>
-
-            <div class="form-group">
-                <label class="form-label">Bio <span class="optional-label">(optional)</span></label>
-                <textarea name="bio" class="form-input instructor-input" placeholder="Tell us about your experience and expertise">{{ old('bio') }}</textarea>
-            </div>
-
-            <div class="form-group">
-                <label class="form-label">Password</label>
+                <label class="form-label">Password *</label>
                 <input type="password" name="password" class="form-input instructor-input" required>
             </div>
 
             <div class="form-group">
-                <label class="form-label">Confirm Password</label>
+                <label class="form-label">Confirm Password *</label>
                 <input type="password" name="password_confirmation" class="form-input instructor-input" required>
             </div>
 
-            <button type="submit" class="btn-primary btn-instructor">Register</button>
+            <button type="submit" class="btn-primary btn-instructor">Continue</button>
         </form>
 
         <div class="auth-links instructor-links">

@@ -46,14 +46,14 @@
 
 /* Purple variant for instructor portal */
 .btn-glass-purple {
-    background: #8a2be2;
+    background: #a855f7;
     border: none;
-    box-shadow: 0 0 40px rgba(138, 43, 226, 0.2);
+    box-shadow: 0 0 40px rgba(168, 85, 247, 0.3);
 }
 
 .btn-glass-purple:hover {
-    background: #7a1fd2;
-    box-shadow: 0 0 30px rgba(138, 43, 226, 0.5);
+    background: #9333ea;
+    box-shadow: 0 0 30px rgba(168, 85, 247, 0.6);
     transform: translateY(-2px);
 }
 
@@ -86,12 +86,12 @@
 /* Purple variant for instructor inputs */
 .input-glass-purple {
     background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(138, 43, 226, 0.3);
+    border: 1px solid rgba(168, 85, 247, 0.4);
 }
 
 .input-glass-purple:focus {
-    border-color: #8a2be2;
-    box-shadow: 0 0 15px rgba(138, 43, 226, 0.3);
+    border-color: #a855f7;
+    box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
     background: rgba(255, 255, 255, 0.08);
 }
 
@@ -169,7 +169,7 @@
 }
 
 .typing-cursor-purple {
-    background: #8a2be2;
+    background: #a855f7;
 }
 
 @keyframes blink {

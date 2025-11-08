@@ -41,7 +41,9 @@
         <li><a href="#">Membership</a></li>
         <li><a href="#">About</a></li>
       </ul>
-      <a class="btn-join" href="{{ route('login') }}">Join Now</a>
+      <div style="display: flex; gap: 1rem;">
+        <a class="btn-join" href="{{ route('login') }}">Login</a>
+      </div>
     </nav>
 
     <div class="hero-inner">

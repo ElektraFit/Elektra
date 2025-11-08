@@ -1,0 +1,93 @@
+<?php
+// database/seeders/MembershipPlanSeeder.php
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use App\Models\MembershipPlan;
+
+class MembershipPlanSeeder extends Seeder
+{
+    public function run()
+    {
+        $plans = [
+            [
+                'name' => 'Basic',
+                'description' => 'Perfect for beginners. Access to gym equipment and basic facilities.',
+                'price' => 2999.00,
+                'duration_months' => 1,
+                'features' => [
+                    'Gym equipment access',
+                    'Locker room access',
+                    'Basic fitness assessment'
+                ],
+                'gym_access' => true,
+                'trainer_access' => false,
+                'group_classes' => false,
+            ],
+            [
+                'name' => 'Premium',
+                'description' => 'Most popular choice. Includes group classes and enhanced facilities.',
+                'price' => 4999.00,
+                'duration_months' => 1,
+                'features' => [
+                    'All Basic features',
+                    'Group fitness classes',
+                    'Nutritional guidance',
+                    'Extended gym hours'
+                ],
+                'gym_access' => true,
+                'trainer_access' => false,
+                'group_classes' => true,
+            ],
+            [
+                'name' => 'Elite',
+                'description' => 'Complete fitness solution with personal trainer access.',
+                'price' => 7999.00,
+                'duration_months' => 1,
+                'features' => [
+                    'All Premium features',
+                    'Personal trainer sessions',
+                    'Customized workout plans',
+                    'Priority booking',
+                    '24/7 gym access'
+                ],
+                'gym_access' => true,
+                'trainer_access' => true,
+                'group_classes' => true,
+            ],
+            [
+                'name' => 'Annual Basic',
+                'description' => 'One year Basic membership with 2 months free!',
+                'price' => 29990.00,
+                'duration_months' => 12,
+                'features' => [
+                    'All Basic features',
+                    '2 months free',
+                    'Member appreciation events'
+                ],
+                'gym_access' => true,
+                'trainer_access' => false,
+                'group_classes' => false,
+            ],
+            [
+                'name' => 'Annual Premium',
+                'description' => 'One year Premium membership with exclusive benefits.',
+                'price' => 49990.00,
+                'duration_months' => 12,
+                'features' => [
+                    'All Premium features',
+                    '2 months free',
+                    'Exclusive member events',
+                    'Guest passes (2 per month)'
+                ],
+                'gym_access' => true,
+                'trainer_access' => false,
+                'group_classes' => true,
+            ]
+        ];
+
+        foreach ($plans as $plan) {
+            MembershipPlan::create($plan);
+        }
+    }
+}

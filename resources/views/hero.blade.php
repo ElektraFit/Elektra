@@ -1,22 +1,3 @@
-
-{{--
-|--------------------------------------------------------------------------
-| VIEW: Hero/Homepage Template (hero.blade.php)
-|--------------------------------------------------------------------------
-|
-| This file is called from routes/web.php or HomeController@index
-| 
-| Blade templates use special syntax:
-| {{ $variable }} = Display a variable safely (escapes HTML)
-| {!! $html !!} = Display raw HTML (dangerous, only if you trust the content)
-| @if, @foreach, @include = Blade directives for logic and includes
-| {{-- comment --}} = Blade comments (won't show in browser source)
-|
-| When someone visits your homepage, Laravel processes this template
-| and sends the final HTML to their browser.
-|
---}}
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -72,14 +53,12 @@
         <li><a href="#">Membership</a></li>
         <li><a href="#">About</a></li>
       </ul>
-      {{-- route() helper generates URLs for named routes --}}
-      <a class="btn-join" href="{{ route('login') }}">Join Now</a>
+      <div style="display: flex; gap: 1rem;">
+        <a class="btn-join" href="{{ route('register') }}">Join Now</a>
+        <a class="btn-join" href="{{ route('login') }}">Login</a>
+      </div>
     </nav>
 
-    {{-- 
-      MAIN CONTENT: Hero text and call-to-action buttons
-      This is what convinces visitors to become customers
-    --}}
     <div class="hero-inner">
       <div class="hero-content">
         <h1 class="hero-title">

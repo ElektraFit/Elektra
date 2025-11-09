@@ -5,7 +5,7 @@
 @section('sidebar-nav')
     <ul>
         <li>
-            <a href="#" class="active" data-view="dashboard">
+            <a href="{{ route('dashboard') }}" class="active">
                 <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                     <polyline points="9 22 9 12 15 12 15 22"></polyline>
@@ -14,7 +14,7 @@
             </a>
         </li>
         <li>
-            <a href="#" data-view="training">
+            <a href="{{ route('training-sessions.index') }}">
                 <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
                 </svg>
@@ -31,7 +31,7 @@
             </a>
         </li>
         <li>
-            <a href="#" data-view="instructors">
+            <a href="{{ route('dashboard') }}#instructors">
                 <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
                     <circle cx="9" cy="7" r="4"></circle>

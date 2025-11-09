@@ -23,7 +23,7 @@ class InstructorProfileController extends Controller
         return view('instructor.profile', compact('instructor'));
     }
 
-    /**
+        /**
      * Upload profile photo to Supabase Storage
      */
     public function uploadPhoto(Request $request)
@@ -48,16 +48,19 @@ class InstructorProfileController extends Controller
         $file = $request->file('profile_photo');
         $filename = 'instructor_' . $instructorId . '_' . time() . '.' . $file->getClientOriginalExtension();
         
-        $response = Http::withHeaders([
-            'Authorization' => 'Bearer ' . env('SUPABASE_KEY'),
-            'Content-Type' => $file->getMimeType(),
-        ])->attach(
-            'file', 
-            file_get_contents($file->getRealPath()), 
-            $filename
-        )->post(env('SUPABASE_URL') . '/storage/v1/object/' . env('SUPABASE_STORAGE_BUCKET') . '/' . $filename);
+        $supabaseUrl = env('SUPABASE_URL');
+        $bucket = env('SUPABASE_STORAGE_BUCKET');
+        $serviceKey = env('SUPABASE_SERVICE_ROLE_KEY', env('AWS_SECRET_ACCESS_KEY')); // Use service role key
+        
+        // Upload using Supabase Storage REST API
+        $response = Http::withOptions(['verify' => false])
+            ->withHeaders([
+                'Authorization' => 'Bearer ' . $serviceKey,
+            ])
+            ->withBody(file_get_contents($file->getRealPath()), $file->getMimeType())
+            ->post($supabaseUrl . '/storage/v1/object/' . $bucket . '/' . $filename);
 
-        if ($response->successful()) {
+        if ($response->successful() || $response->status() == 200) {
             // Update instructor record with filename only
             $instructor->profile_photo = $filename;
             $instructor->save();
@@ -65,7 +68,12 @@ class InstructorProfileController extends Controller
             return redirect()->route('instructor.profile')->with('success', 'Profile photo updated successfully!');
         }
 
-        return redirect()->route('instructor.profile')->with('error', 'Failed to upload photo. Please try again.');
+        \Log::error('Supabase upload failed', [
+            'status' => $response->status(),
+            'body' => $response->body(),
+        ]);
+
+        return redirect()->route('instructor.profile')->with('error', 'Upload failed: ' . $response->body());
     }
 
     /**
@@ -97,8 +105,14 @@ class InstructorProfileController extends Controller
      */
     private function deleteFromSupabase($filename)
     {
-        Http::withHeaders([
-            'Authorization' => 'Bearer ' . env('SUPABASE_KEY'),
-        ])->delete(env('SUPABASE_URL') . '/storage/v1/object/' . env('SUPABASE_STORAGE_BUCKET') . '/' . $filename);
+        $supabaseUrl = env('SUPABASE_URL');
+        $bucket = env('SUPABASE_STORAGE_BUCKET');
+        $serviceKey = env('SUPABASE_SERVICE_ROLE_KEY', env('AWS_SECRET_ACCESS_KEY'));
+        
+        Http::withOptions(['verify' => false])
+            ->withHeaders([
+                'Authorization' => 'Bearer ' . $serviceKey,
+            ])
+            ->delete($supabaseUrl . '/storage/v1/object/' . $bucket . '/' . $filename);
     }
 }

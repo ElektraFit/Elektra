@@ -4,10 +4,43 @@
 
 @section('sidebar-nav')
     <ul>
-        <x-nav-item href="{{ route('dashboard') }}" icon="■" label="Dashboard" />
-        <x-nav-item href="{{ route('training-sessions.index') }}" icon="⚡" label="Training Sessions" />
-        <x-nav-item href="{{ route('nutrition.index') }}" icon="🍎" label="Nutrition" :active="true" />
-        <x-nav-item href="#" icon="▲" label="Instructors" />
+        <li>
+            <a href="{{ route('dashboard') }}">
+                <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                <span class="nav-text">Dashboard</span>
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('training-sessions.index') }}">
+                <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                </svg>
+                <span class="nav-text">Training Sessions</span>
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('nutrition.index') }}" class="active">
+                <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="8" r="7"></circle>
+                    <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                </svg>
+                <span class="nav-text">Nutrition</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+                <span class="nav-text">Instructors</span>
+            </a>
+        </li>
     </ul>
 @endsection
 
@@ -37,7 +70,11 @@
     <!-- Today's Summary -->
     <div class="nutrition-summary">
         <div class="summary-card calories-card">
-            <div class="summary-icon">🔥</div>
+            <div class="summary-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                </svg>
+            </div>
             <div class="summary-content">
                 <div class="summary-value">{{ number_format($todayTotals['calories'], 0) }}</div>
                 <div class="summary-label">Calories</div>
@@ -45,7 +82,11 @@
         </div>
         
         <div class="summary-card protein-card">
-            <div class="summary-icon">💪</div>
+            <div class="summary-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                </svg>
+            </div>
             <div class="summary-content">
                 <div class="summary-value">{{ number_format($todayTotals['protein'], 1) }}g</div>
                 <div class="summary-label">Protein</div>
@@ -53,7 +94,12 @@
         </div>
         
         <div class="summary-card carbs-card">
-            <div class="summary-icon">🌾</div>
+            <div class="summary-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <path d="M12 6v12M6 12h12"></path>
+                </svg>
+            </div>
             <div class="summary-content">
                 <div class="summary-value">{{ number_format($todayTotals['carbs'], 1) }}g</div>
                 <div class="summary-label">Carbs</div>
@@ -61,7 +107,12 @@
         </div>
         
         <div class="summary-card fat-card">
-            <div class="summary-icon">🥑</div>
+            <div class="summary-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+                    <line x1="7" y1="7" x2="7.01" y2="7"></line>
+                </svg>
+            </div>
             <div class="summary-content">
                 <div class="summary-value">{{ number_format($todayTotals['fat'], 1) }}g</div>
                 <div class="summary-label">Fat</div>

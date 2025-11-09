@@ -4,10 +4,43 @@
 
 @section('sidebar-nav')
     <ul>
-        <x-nav-item href="#" icon="■" label="Dashboard" :active="true" data-view="dashboard" />
-        <x-nav-item href="#" icon="⚡" label="Training Sessions" data-view="training" />
-        <x-nav-item href="{{ route('nutrition.index') }}" icon="🍎" label="Nutrition" />
-        <x-nav-item href="#" icon="▲" label="Instructors" data-view="instructors" />
+        <li>
+            <a href="#" class="active" data-view="dashboard">
+                <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                <span class="nav-text">Dashboard</span>
+            </a>
+        </li>
+        <li>
+            <a href="#" data-view="training">
+                <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                </svg>
+                <span class="nav-text">Training Sessions</span>
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('nutrition.index') }}">
+                <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="8" r="7"></circle>
+                    <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                </svg>
+                <span class="nav-text">Nutrition</span>
+            </a>
+        </li>
+        <li>
+            <a href="#" data-view="instructors">
+                <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+                <span class="nav-text">Instructors</span>
+            </a>
+        </li>
     </ul>
 @endsection
 
@@ -36,10 +69,35 @@
         </div>
 
         <div class="stats-grid">
-            <x-dashboard-stat-card icon="♦" value="{{ $totalSessions }}" label="Total Sessions" />
-            <x-dashboard-stat-card icon="⏱" value="{{ $totalHours }}" label="Total Hours" />
-            <x-dashboard-stat-card icon="●" value="{{ $weekSessions }}" label="This Week's Sessions" />
-            <x-dashboard-stat-card icon="★" value="{{ $weekHours }}" label="This Week's Hours" />
+            <x-dashboard-stat-card value="{{ $totalSessions }}" label="Total Sessions">
+                <x-slot name="icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                    </svg>
+                </x-slot>
+            </x-dashboard-stat-card>
+            <x-dashboard-stat-card value="{{ $totalHours }}" label="Total Hours">
+                <x-slot name="icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                </x-slot>
+            </x-dashboard-stat-card>
+            <x-dashboard-stat-card value="{{ $weekSessions }}" label="This Week's Sessions">
+                <x-slot name="icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 20V10M12 20V4M6 20v-6"></path>
+                    </svg>
+                </x-slot>
+            </x-dashboard-stat-card>
+            <x-dashboard-stat-card value="{{ $weekHours }}" label="This Week's Hours">
+                <x-slot name="icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                    </svg>
+                </x-slot>
+            </x-dashboard-stat-card>
         </div>
 
         <div class="content-card">

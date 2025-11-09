@@ -72,8 +72,9 @@
         <div class="summary-card calories-card">
             <div class="summary-icon">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M12.5 2C12.5 2 5 5.5 5 12.5C5 17.75 8.5 22 12.5 22C16.5 22 20 17.75 20 12.5C20 5.5 12.5 2 12.5 2Z"></path>
-                    <path d="M12.5 6C12.5 6 9 8 9 12C9 15 10.5 17.5 12.5 17.5C14.5 17.5 16 15 16 12C16 8 12.5 6 12.5 6Z"></path>
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
                 </svg>
             </div>
             <div class="summary-content">
@@ -85,10 +86,9 @@
         <div class="summary-card protein-card">
             <div class="summary-icon">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M2.27 21.7s9.87-3.5 12.73-6.36a4.5 4.5 0 0 0-6.36-6.37C5.77 11.84 2.27 21.7 2.27 21.7z"></path>
-                    <path d="M8.64 14L12 10.64"></path>
-                    <path d="M14 8l3-3 3 3"></path>
-                    <path d="M17 5l3 3"></path>
+                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                    <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                    <line x1="12" y1="22.08" x2="12" y2="12"></line>
                 </svg>
             </div>
             <div class="summary-content">
@@ -100,9 +100,8 @@
         <div class="summary-card carbs-card">
             <div class="summary-icon">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M12 2a10 10 0 0 0-9.95 9h2.02a8 8 0 1 1 15.86 0h2.02A10 10 0 0 0 12 2z"></path>
-                    <path d="M12 11v10"></path>
-                    <path d="M8 15h8"></path>
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
                 </svg>
             </div>
             <div class="summary-content">
@@ -114,7 +113,7 @@
         <div class="summary-card fat-card">
             <div class="summary-icon">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M19 11H5M19 11C20.1046 11 21 11.8954 21 13V19C21 20.1046 20.1046 21 19 21H5C3.89543 21 3 20.1046 3 19V13C3 11.8954 3.89543 11 5 11M19 11V9C19 7.89543 18.1046 7 17 7M5 11V9C5 7.89543 5.89543 7 7 7M7 7V5C7 3.89543 7.89543 3 9 3H15C16.1046 3 17 3.89543 17 5V7M7 7H17"></path>
+                    <circle cx="12" cy="12" r="10"></circle>
                 </svg>
             </div>
             <div class="summary-content">

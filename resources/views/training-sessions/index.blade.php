@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'My Training Sessions')
+@section('title', 'Training Sessions')
 
 @section('sidebar-nav')
     <ul>
@@ -50,162 +50,191 @@
 @endsection
 
 @section('content')
-<div class="training-sessions-container">
+<div class="training-sessions-page">
     <!-- Page Header -->
     <div class="page-header">
         <div class="header-content">
-            <h1 class="page-title">Training Sessions</h1>
-            <p class="page-subtitle">Track your fitness journey and progress</p>
+            <h1 class="page-title">My Training Sessions</h1>
+            <p class="page-subtitle">Track and manage your fitness journey</p>
         </div>
-        <a href="{{ route('training-sessions.create') }}" class="btn-primary">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <a href="{{ route('training-sessions.create') }}" class="btn-create">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                 <line x1="12" y1="5" x2="12" y2="19"></line>
                 <line x1="5" y1="12" x2="19" y2="12"></line>
             </svg>
-            <span>Log New Session</span>
+            <span>New Session</span>
         </a>
     </div>
 
-    <!-- Success Alert -->
-    @if(session('success'))
-        <div class="alert alert-success">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="20 6 9 17 4 12"></polyline>
-            </svg>
-            <span>{{ session('success') }}</span>
+    <!-- Stats Overview -->
+    @if($sessions->isNotEmpty())
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon stat-icon-purple">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                </svg>
+            </div>
+            <div class="stat-content">
+                <div class="stat-value">{{ $sessions->count() }}</div>
+                <div class="stat-label">Total Sessions</div>
+            </div>
         </div>
+
+        <div class="stat-card">
+            <div class="stat-icon stat-icon-blue">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+            </div>
+            <div class="stat-content">
+                <div class="stat-value">{{ $sessions->sum('duration') }}</div>
+                <div class="stat-label">Total Minutes</div>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon stat-icon-green">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+            </div>
+            <div class="stat-content">
+                <div class="stat-value">{{ $sessions->where('session_date', '>=', now()->startOfWeek())->count() }}</div>
+                <div class="stat-label">This Week</div>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon stat-icon-orange">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+                </svg>
+            </div>
+            <div class="stat-content">
+                <div class="stat-value">{{ $sessions->avg('intensity') ? number_format($sessions->avg('intensity'), 1) : 0 }}</div>
+                <div class="stat-label">Avg Intensity</div>
+            </div>
+        </div>
+    </div>
     @endif
 
-    @if($sessions->count() > 0)
-        <!-- Stats Cards -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-icon stat-icon-primary">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="12" y1="20" x2="12" y2="10"></line>
-                        <line x1="18" y1="20" x2="18" y2="4"></line>
-                        <line x1="6" y1="20" x2="6" y2="16"></line>
-                    </svg>
-                </div>
-                <div class="stat-content">
-                    <div class="stat-value">{{ $sessions->count() }}</div>
-                    <div class="stat-label">Total Sessions</div>
-                </div>
+    <!-- Sessions List -->
+    <div class="sessions-container">
+        @if($sessions->isEmpty())
+        <div class="empty-state">
+            <div class="empty-icon">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
             </div>
-
-            <div class="stat-card">
-                <div class="stat-icon stat-icon-success">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <polyline points="12 6 12 12 16 14"></polyline>
-                    </svg>
-                </div>
-                <div class="stat-content">
-                    <div class="stat-value">{{ $sessions->sum('duration_minutes') }}</div>
-                    <div class="stat-label">Total Minutes</div>
-                </div>
-            </div>
-
-            <div class="stat-card">
-                <div class="stat-icon stat-icon-danger">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
-                    </svg>
-                </div>
-                <div class="stat-content">
-                    <div class="stat-value">{{ $sessions->where('intensity', 'high')->count() }}</div>
-                    <div class="stat-label">High Intensity</div>
-                </div>
-            </div>
+            <h3 class="empty-title">No Training Sessions Yet</h3>
+            <p class="empty-text">Start your fitness journey by logging your first training session</p>
+            <a href="{{ route('training-sessions.create') }}" class="btn-primary">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+                <span>Create First Session</span>
+            </a>
         </div>
-
-        <!-- Sessions List -->
+        @else
         <div class="sessions-list">
             @foreach($sessions as $session)
-                <div class="session-card">
-                    <div class="session-header">
-                        <div class="session-title-wrapper">
-                            <div class="session-type-icon">
-                                @switch($session->training_type)
-                                    @case('Cardio')
-                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
-                                        </svg>
-                                    @break
-                                    @case('Strength Training')
-                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <path d="M6.5 6.5h11v11h-11z"></path>
-                                            <path d="M6.5 6.5L2 2"></path>
-                                            <path d="M17.5 6.5L22 2"></path>
-                                            <path d="M6.5 17.5L2 22"></path>
-                                            <path d="M17.5 17.5L22 22"></path>
-                                        </svg>
-                                    @break
-                                    @case('Yoga')
-                                    @case('Pilates')
-                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <circle cx="12" cy="12" r="10"></circle>
-                                            <path d="M12 16v-4"></path>
-                                            <path d="M12 8h.01"></path>
-                                        </svg>
-                                    @break
-                                    @case('HIIT')
-                                    @case('CrossFit')
-                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
-                                        </svg>
-                                    @break
-                                    @case('Boxing')
-                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
-                                            <path d="M2 17l10 5 10-5"></path>
-                                            <path d="M2 12l10 5 10-5"></path>
-                                        </svg>
-                                    @break
-                                    @case('Swimming')
-                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <path d="M2 16.1A5 5 0 0 1 5.9 20M2 12.05A9 9 0 0 1 9.95 20M2 8V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v2"></path>
-                                        </svg>
-                                    @break
-                                    @case('Cycling')
-                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <circle cx="18.5" cy="17.5" r="3.5"></circle>
-                                            <circle cx="5.5" cy="17.5" r="3.5"></circle>
-                                            <circle cx="15" cy="5" r="1"></circle>
-                                            <path d="M12 17.5V14l-3-3 4-3 2 3h2"></path>
-                                        </svg>
-                                    @break
-                                    @case('Running')
-                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <circle cx="12" cy="5" r="3"></circle>
-                                            <path d="M6.5 8.5L9 11l3-3 3 3 2.5-2.5"></path>
-                                            <path d="M9 18l-3 3"></path>
-                                            <path d="M15 18l3 3"></path>
-                                        </svg>
-                                    @break
-                                    @default
-                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <circle cx="12" cy="12" r="10"></circle>
-                                            <line x1="12" y1="8" x2="12" y2="12"></line>
-                                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
-                                        </svg>
-                                @endswitch
-                            </div>
-                            <div>
-                                <h3 class="session-type">{{ $session->training_type }}</h3>
-                                @if($session->description)
-                                    <p class="session-description">{{ Str::limit($session->description, 60) }}</p>
-                                @endif
-                            </div>
-                        </div>
-                        <span class="intensity-badge intensity-{{ $session->intensity }}">
-                            {{ ucfirst($session->intensity) }}
-                        </span>
+            <div class="session-card">
+                <div class="session-header">
+                    <div class="session-type">
+                        @switch($session->training_type)
+                            @case('cardio')
+                                <div class="type-badge type-cardio">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                                    </svg>
+                                    <span>Cardio</span>
+                                </div>
+                                @break
+                            @case('strength')
+                                <div class="type-badge type-strength">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <line x1="6" y1="6" x2="6" y2="18"></line>
+                                        <line x1="18" y1="6" x2="18" y2="18"></line>
+                                        <line x1="4" y1="6" x2="8" y2="6"></line>
+                                        <line x1="16" y1="6" x2="20" y2="6"></line>
+                                        <line x1="4" y1="18" x2="8" y2="18"></line>
+                                        <line x1="16" y1="18" x2="20" y2="18"></line>
+                                        <line x1="9" y1="9" x2="15" y2="9"></line>
+                                        <line x1="9" y1="15" x2="15" y2="15"></line>
+                                    </svg>
+                                    <span>Strength</span>
+                                </div>
+                                @break
+                            @case('flexibility')
+                                <div class="type-badge type-flexibility">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M12 2a10 10 0 1 0 0 20 10 10 0 1 0 0-20z"></path>
+                                        <path d="M12 6v6l4 2"></path>
+                                    </svg>
+                                    <span>Flexibility</span>
+                                </div>
+                                @break
+                            @case('hiit')
+                                <div class="type-badge type-hiit">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+                                    </svg>
+                                    <span>HIIT</span>
+                                </div>
+                                @break
+                            @case('sports')
+                                <div class="type-badge type-sports">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <path d="M12 2a10 10 0 0 0 0 20"></path>
+                                        <path d="M12 2a10 10 0 0 1 0 20"></path>
+                                    </svg>
+                                    <span>Sports</span>
+                                </div>
+                                @break
+                            @default
+                                <div class="type-badge type-other">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                                    </svg>
+                                    <span>{{ ucfirst($session->training_type) }}</span>
+                                </div>
+                        @endswitch
                     </div>
+                    <div class="session-actions">
+                        <a href="{{ route('training-sessions.edit', $session) }}" class="btn-icon" title="Edit">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                            </svg>
+                        </a>
+                        <form action="{{ route('training-sessions.destroy', $session) }}" method="POST" class="delete-form" onsubmit="return confirm('Are you sure you want to delete this session?');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn-icon btn-icon-danger" title="Delete">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="3 6 5 6 21 6"></polyline>
+                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                    <line x1="10" y1="11" x2="10" y2="17"></line>
+                                    <line x1="14" y1="11" x2="14" y2="17"></line>
+                                </svg>
+                            </button>
+                        </form>
+                    </div>
+                </div>
 
-                    <div class="session-details">
+                <div class="session-details">
+                    <div class="detail-row">
                         <div class="detail-item">
-                            <svg class="detail-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
                                 <line x1="16" y1="2" x2="16" y2="6"></line>
                                 <line x1="8" y1="2" x2="8" y2="6"></line>
@@ -213,487 +242,415 @@
                             </svg>
                             <span>{{ $session->session_date->format('M d, Y') }}</span>
                         </div>
-
                         <div class="detail-item">
-                            <svg class="detail-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <circle cx="12" cy="12" r="10"></circle>
                                 <polyline points="12 6 12 12 16 14"></polyline>
                             </svg>
-                            <span>{{ \Carbon\Carbon::parse($session->session_time)->format('g:i A') }}</span>
+                            <span>{{ $session->session_time->format('h:i A') }}</span>
                         </div>
-
                         <div class="detail-item">
-                            <svg class="detail-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <circle cx="12" cy="12" r="10"></circle>
                                 <polyline points="12 6 12 12 16 14"></polyline>
                             </svg>
-                            <span>{{ $session->duration_minutes }} min</span>
+                            <span>{{ $session->duration }} mins</span>
                         </div>
-
-                        @if($session->instructor)
-                            <div class="detail-item">
-                                <svg class="detail-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                                    <circle cx="12" cy="7" r="4"></circle>
-                                </svg>
-                                <span>{{ $session->instructor->name }}</span>
-                            </div>
-                        @endif
+                        <div class="detail-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+                            </svg>
+                            <span>Level {{ $session->intensity }}</span>
+                        </div>
                     </div>
 
-                    @if($session->notes)
-                        <div class="session-notes">
-                            <svg class="notes-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                                <polyline points="14 2 14 8 20 8"></polyline>
-                                <line x1="16" y1="13" x2="8" y2="13"></line>
-                                <line x1="16" y1="17" x2="8" y2="17"></line>
-                                <polyline points="10 9 9 9 8 9"></polyline>
+                    @if($session->instructor)
+                    <div class="detail-row">
+                        <div class="detail-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
                             </svg>
-                            <p>{{ Str::limit($session->notes, 100) }}</p>
+                            <span>Instructor: {{ $session->instructor->name }}</span>
                         </div>
+                    </div>
                     @endif
 
-                    <div class="session-actions">
-                        <a href="{{ route('training-sessions.edit', $session) }}" class="btn-action btn-edit">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                            </svg>
-                            <span>Edit</span>
-                        </a>
-                        <form action="{{ route('training-sessions.destroy', $session) }}" method="POST" style="display: inline;" onsubmit="return confirm('Delete this session?');">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn-action btn-delete">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <polyline points="3 6 5 6 21 6"></polyline>
-                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                                </svg>
-                                <span>Delete</span>
-                            </button>
-                        </form>
+                    @if($session->notes)
+                    <div class="session-notes">
+                        <p>{{ $session->notes }}</p>
                     </div>
+                    @endif
                 </div>
+            </div>
             @endforeach
         </div>
-    @else
-        <!-- Empty State -->
-        <div class="empty-state">
-            <div class="empty-icon">
-                <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
-                </svg>
-            </div>
-            <h2>No Training Sessions Yet</h2>
-            <p>Start tracking your fitness journey by logging your first workout session!</p>
-            <a href="{{ route('training-sessions.create') }}" class="btn-primary">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <line x1="12" y1="5" x2="12" y2="19"></line>
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                </svg>
-                <span>Log Your First Session</span>
-            </a>
-        </div>
-    @endif
+        @endif
+    </div>
 </div>
-@endsection
 
-@section('extra-styles')
 <style>
-/* Container */
-.training-sessions-container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 3rem 2rem;
-}
-
-/* Page Header */
-.page-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 3rem;
-    gap: 2rem;
-}
-
-.header-content {
-    flex: 1;
-}
-
-.page-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #fff;
-    margin: 0 0 0.75rem 0;
-    letter-spacing: -0.02em;
-}
-
-.page-subtitle {
-    font-size: 1.125rem;
-    color: rgba(255, 255, 255, 0.6);
-    margin: 0;
-}
-
-/* Primary Button */
-.btn-primary {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.875rem 1.5rem;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border: none;
-    border-radius: 10px;
-    font-weight: 600;
-    font-size: 0.95rem;
-    text-decoration: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-}
-
-.btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
-}
-
-.btn-primary svg {
-    flex-shrink: 0;
-}
-
-/* Alert */
-.alert {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 1rem 1.25rem;
-    border-radius: 10px;
-    margin-bottom: 2rem;
-    font-weight: 500;
-}
-
-.alert-success {
-    background: rgba(16, 185, 129, 0.1);
-    border: 1px solid rgba(16, 185, 129, 0.3);
-    color: #10b981;
-}
-
-.alert svg {
-    flex-shrink: 0;
-}
-
-/* Stats Grid */
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 2rem;
-    margin-bottom: 3rem;
-}
-
-.stat-card {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    padding: 2rem;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 16px;
-    transition: all 0.3s ease;
-}
-
-.stat-card:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.2);
-    transform: translateY(-2px);
-}
-
-.stat-icon {
-    width: 56px;
-    height: 56px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 12px;
-    flex-shrink: 0;
-}
-
-.stat-icon-primary {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-}
-
-.stat-icon-success {
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-}
-
-.stat-icon-danger {
-    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-}
-
-.stat-content {
-    flex: 1;
-}
-
-.stat-value {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #fff;
-    line-height: 1;
-    margin-bottom: 0.5rem;
-}
-
-.stat-label {
-    font-size: 0.9375rem;
-    color: rgba(255, 255, 255, 0.6);
-    font-weight: 500;
-}
-
-/* Sessions List */
-.sessions-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
-.session-card {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 16px;
-    padding: 2rem;
-    transition: all 0.3s ease;
-}
-
-.session-card:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.2);
-    transform: translateX(4px);
-}
-
-.session-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 1.5rem;
-    gap: 1.5rem;
-}
-
-.session-title-wrapper {
-    display: flex;
-    align-items: flex-start;
-    gap: 1.25rem;
-    flex: 1;
-}
-
-.session-type-icon {
-    width: 48px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(102, 126, 234, 0.1);
-    border-radius: 12px;
-    flex-shrink: 0;
-}
-
-.session-type-icon svg {
-    color: #667eea;
-}
-
-.session-type {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: #fff;
-    margin: 0 0 0.5rem 0;
-}
-
-.session-description {
-    font-size: 0.9375rem;
-    color: rgba(255, 255, 255, 0.5);
-    margin: 0;
-    line-height: 1.5;
-}
-
-/* Intensity Badge */
-.intensity-badge {
-    padding: 0.5rem 1rem;
-    border-radius: 24px;
-    font-size: 0.8125rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    white-space: nowrap;
-}
-
-.intensity-low {
-    background: rgba(16, 185, 129, 0.15);
-    color: #10b981;
-    border: 1px solid rgba(16, 185, 129, 0.3);
-}
-
-.intensity-moderate {
-    background: rgba(245, 158, 11, 0.15);
-    color: #f59e0b;
-    border: 1px solid rgba(245, 158, 11, 0.3);
-}
-
-.intensity-high {
-    background: rgba(239, 68, 68, 0.15);
-    color: #ef4444;
-    border: 1px solid rgba(239, 68, 68, 0.3);
-}
-
-/* Session Details */
-.session-details {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
-    margin-bottom: 1.5rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.detail-item {
-    display: flex;
-    align-items: center;
-    gap: 0.625rem;
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 0.9375rem;
-}
-
-.detail-icon {
-    color: rgba(255, 255, 255, 0.4);
-    flex-shrink: 0;
-}
-
-/* Session Notes */
-.session-notes {
-    display: flex;
-    gap: 1rem;
-    padding: 1.25rem;
-    background: rgba(255, 255, 255, 0.02);
-    border-radius: 10px;
-    margin-bottom: 1.5rem;
-}
-
-.notes-icon {
-    color: rgba(255, 255, 255, 0.4);
-    flex-shrink: 0;
-    margin-top: 0.125rem;
-}
-
-.session-notes p {
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 0.9375rem;
-    line-height: 1.6;
-    margin: 0;
-}
-
-/* Session Actions */
-.session-actions {
-    display: flex;
-    gap: 1rem;
-}
-
-.btn-action {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.625rem;
-    padding: 0.75rem 1.25rem;
-    border-radius: 10px;
-    font-size: 0.9375rem;
-    font-weight: 500;
-    text-decoration: none;
-    border: none;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.btn-edit {
-    background: rgba(59, 130, 246, 0.1);
-    color: #3b82f6;
-    border: 1px solid rgba(59, 130, 246, 0.3);
-}
-
-.btn-edit:hover {
-    background: rgba(59, 130, 246, 0.2);
-    border-color: rgba(59, 130, 246, 0.5);
-}
-
-.btn-delete {
-    background: rgba(239, 68, 68, 0.1);
-    color: #ef4444;
-    border: 1px solid rgba(239, 68, 68, 0.3);
-}
-
-.btn-delete:hover {
-    background: rgba(239, 68, 68, 0.2);
-    border-color: rgba(239, 68, 68, 0.5);
-}
-
-.btn-action svg {
-    flex-shrink: 0;
-}
-
-/* Empty State */
-.empty-state {
-    text-align: center;
-    padding: 5rem 2rem;
-    background: rgba(255, 255, 255, 0.02);
-    border: 2px dashed rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
-}
-
-.empty-icon {
-    margin: 0 auto 2rem;
-    color: rgba(255, 255, 255, 0.2);
-}
-
-.empty-state h2 {
-    font-size: 1.75rem;
-    font-weight: 700;
-    color: #fff;
-    margin: 0 0 1rem 0;
-}
-
-.empty-state p {
-    font-size: 1.125rem;
-    color: rgba(255, 255, 255, 0.5);
-    margin: 0 0 2.5rem 0;
-    line-height: 1.6;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .training-sessions-container {
-        padding: 1rem;
+    .training-sessions-page {
+        padding: 2rem;
+        max-width: 1400px;
+        margin: 0 auto;
     }
 
     .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 3rem;
+    }
+
+    .header-content h1 {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 2.5rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin: 0 0 0.5rem 0;
+    }
+
+    .page-subtitle {
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 1rem;
+        margin: 0;
+    }
+
+    .btn-create {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 1rem 1.75rem;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        text-decoration: none;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn-create:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 30px rgba(102, 126, 234, 0.6);
+    }
+
+    .btn-create svg {
+        transition: transform 0.3s ease;
+    }
+
+    .btn-create:hover svg {
+        transform: rotate(90deg);
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 3rem;
+    }
+
+    .stat-card {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 16px;
+        padding: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 1.25rem;
+        transition: all 0.3s ease;
+    }
+
+    .stat-card:hover {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.2);
+        transform: translateY(-2px);
+    }
+
+    .stat-icon {
+        width: 56px;
+        height: 56px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    .stat-icon-purple {
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+        border: 1px solid rgba(102, 126, 234, 0.3);
+    }
+
+    .stat-icon-blue {
+        background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(37, 99, 235, 0.2));
+        border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+
+    .stat-icon-green {
+        background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(5, 150, 105, 0.2));
+        border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .stat-icon-orange {
+        background: linear-gradient(135deg, rgba(251, 146, 60, 0.2), rgba(249, 115, 22, 0.2));
+        border: 1px solid rgba(251, 146, 60, 0.3);
+    }
+
+    .stat-content {
+        flex: 1;
+    }
+
+    .stat-value {
+        font-size: 2rem;
+        font-weight: 700;
+        color: white;
+        line-height: 1;
+        margin-bottom: 0.25rem;
+    }
+
+    .stat-label {
+        font-size: 0.875rem;
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+    /* Sessions List */
+    .sessions-container {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 20px;
+        padding: 2rem;
+    }
+
+    .sessions-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .session-card {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 16px;
+        padding: 1.75rem;
+        transition: all 0.3s ease;
+    }
+
+    .session-card:hover {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.2);
+        transform: translateX(4px);
+    }
+
+    .session-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .type-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        font-size: 0.875rem;
+        font-weight: 600;
+        border: 1px solid;
+    }
+
+    .type-cardio {
+        background: rgba(239, 68, 68, 0.15);
+        border-color: rgba(239, 68, 68, 0.3);
+        color: #ef4444;
+    }
+
+    .type-strength {
+        background: rgba(59, 130, 246, 0.15);
+        border-color: rgba(59, 130, 246, 0.3);
+        color: #3b82f6;
+    }
+
+    .type-flexibility {
+        background: rgba(16, 185, 129, 0.15);
+        border-color: rgba(16, 185, 129, 0.3);
+        color: #10b981;
+    }
+
+    .type-hiit {
+        background: rgba(251, 146, 60, 0.15);
+        border-color: rgba(251, 146, 60, 0.3);
+        color: #fb923c;
+    }
+
+    .type-sports {
+        background: rgba(168, 85, 247, 0.15);
+        border-color: rgba(168, 85, 247, 0.3);
+        color: #a855f7;
+    }
+
+    .type-other {
+        background: rgba(156, 163, 175, 0.15);
+        border-color: rgba(156, 163, 175, 0.3);
+        color: #9ca3af;
+    }
+
+    .session-actions {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .btn-icon {
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        background: rgba(255, 255, 255, 0.05);
+        color: white;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-decoration: none;
+    }
+
+    .btn-icon:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.3);
+        transform: translateY(-2px);
+    }
+
+    .btn-icon-danger:hover {
+        background: rgba(239, 68, 68, 0.2);
+        border-color: rgba(239, 68, 68, 0.4);
+        color: #ef4444;
+    }
+
+    .delete-form {
+        display: inline;
+        margin: 0;
+    }
+
+    .session-details {
+        display: flex;
         flex-direction: column;
         gap: 1rem;
     }
 
-    .stats-grid {
-        grid-template-columns: 1fr;
+    .detail-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
     }
 
-    .session-header {
-        flex-direction: column;
+    .detail-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 0.9375rem;
     }
 
-    .session-details {
-        flex-direction: column;
-        gap: 0.75rem;
+    .detail-item svg {
+        color: rgba(102, 126, 234, 0.8);
+        flex-shrink: 0;
     }
 
-    .session-actions {
-        flex-direction: column;
+    .session-notes {
+        padding: 1rem;
+        background: rgba(0, 0, 0, 0.2);
+        border-left: 3px solid rgba(102, 126, 234, 0.6);
+        border-radius: 8px;
+        margin-top: 0.5rem;
     }
 
-    .btn-action {
-        width: 100%;
+    .session-notes p {
+        margin: 0;
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.9375rem;
+        line-height: 1.6;
+    }
+
+    /* Empty State */
+    .empty-state {
+        text-align: center;
+        padding: 5rem 2rem;
+    }
+
+    .empty-icon {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 2rem;
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+        border: 2px solid rgba(102, 126, 234, 0.2);
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
         justify-content: center;
+        color: rgba(102, 126, 234, 0.6);
     }
-}
+
+    .empty-title {
+        font-size: 1.75rem;
+        font-weight: 600;
+        color: white;
+        margin: 0 0 0.75rem 0;
+    }
+
+    .empty-text {
+        font-size: 1.0625rem;
+        color: rgba(255, 255, 255, 0.6);
+        margin: 0 0 2rem 0;
+    }
+
+    .btn-primary {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 1rem 2rem;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        text-decoration: none;
+        border: none;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 30px rgba(102, 126, 234, 0.6);
+    }
+
+    @media (max-width: 768px) {
+        .training-sessions-page {
+            padding: 1.5rem;
+        }
+
+        .page-header {
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .stats-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .detail-row {
+            flex-direction: column;
+            gap: 1rem;
+        }
+    }
 </style>
 @endsection

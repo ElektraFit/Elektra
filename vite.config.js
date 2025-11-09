@@ -11,6 +11,7 @@ export default defineConfig({
                 'resources/css/shared.css',
                 'resources/css/auth.css',
                 'resources/css/dashboard.css',
+                'resources/css/training-sessions.css',
                 'resources/js/app.js'
             ],
             refresh: true,

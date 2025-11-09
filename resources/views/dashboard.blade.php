@@ -4,7 +4,8 @@
 
 @section('sidebar-nav')
     <ul>
-        <x-nav-item href="#" icon="🏠" label="Dashboard" :active="true" />
+        <x-nav-item href="{{ route('dashboard') }}" icon="�" label="Dashboard" :active="true" />
+        <x-nav-item href="{{ route('training-sessions.index') }}" icon="💪" label="Training Sessions" />
         <x-nav-item href="#" icon="🎓" label="Instructors" />
     </ul>
 @endsection
@@ -13,7 +14,11 @@
     <form method="POST" action="{{ route('logout') }}">
         @csrf
         <button type="submit" class="btn-logout">
-            <span class="nav-icon">🚪</span>
+            <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                <polyline points="16 17 21 12 16 7"></polyline>
+                <line x1="21" y1="12" x2="9" y2="12"></line>
+            </svg>
             <span class="nav-text">Logout</span>
         </button>
     </form>
@@ -28,10 +33,10 @@
     </div>
 
     <div class="stats-grid">
-        <x-dashboard-stat-card icon="💪" value="0" label="Workouts This Month" />
-        <x-dashboard-stat-card icon="🔥" value="0" label="Calories Burned" />
-        <x-dashboard-stat-card icon="⏱️" value="0" label="Hours Trained" />
-        <x-dashboard-stat-card icon="🎯" value="0" label="Goals Achieved" />
+        <x-dashboard-stat-card icon="💪" value="{{ $totalSessions }}" label="Total Sessions" />
+        <x-dashboard-stat-card icon="⏱️" value="{{ $totalHours }}" label="Total Hours" />
+        <x-dashboard-stat-card icon="📅" value="{{ $weekSessions }}" label="This Week's Sessions" />
+        <x-dashboard-stat-card icon="🔥" value="{{ $weekHours }}" label="This Week's Hours" />
     </div>
 
     <div class="content-card">

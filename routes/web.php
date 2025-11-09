@@ -29,19 +29,30 @@ Route::post('/otp/verify', [AuthController::class, 'verifyMemberOtp'])->name('ot
 
 // Dashboard route
 Route::get('/dashboard', function () {
-    // Get userName from authenticated user or session
-    $userName = 'Member';
+    $user = Auth::user() ?? \App\Models\User::find(Session::get('user_id'));
     
-    if (Auth::check()) {
-        $userName = Auth::user()->name;
-    } elseif (Session::has('user_id')) {
-        $user = \App\Models\User::find(Session::get('user_id'));
-        if ($user) {
-            $userName = $user->name;
-        }
+    $stats = [
+        'userName' => $user->name ?? 'Member',
+        'totalHours' => 0,
+        'totalSessions' => 0,
+        'weekHours' => 0,
+        'weekSessions' => 0,
+    ];
+    
+    if ($user) {
+        $sessions = \App\Models\TrainingSession::where('user_id', $user->id);
+        $weekSessions = clone $sessions;
+        
+        $stats['totalMinutes'] = $sessions->sum('duration_minutes');
+        $stats['totalHours'] = round($stats['totalMinutes'] / 60, 1);
+        $stats['totalSessions'] = $sessions->count();
+        
+        $weekMinutes = $weekSessions->where('session_date', '>=', now()->startOfWeek())->sum('duration_minutes');
+        $stats['weekHours'] = round($weekMinutes / 60, 1);
+        $stats['weekSessions'] = $weekSessions->where('session_date', '>=', now()->startOfWeek())->count();
     }
     
-    return view('dashboard', ['userName' => $userName]);
+    return view('dashboard', $stats);
 })->name('dashboard');
 
 // Member logout route
@@ -50,6 +61,16 @@ Route::post('/logout', function () {
     Session::flush();
     return redirect()->route('login')->with('status', 'Logged out successfully');
 })->name('logout');
+
+// Training Session routes (protected by auth middleware)
+Route::middleware('auth')->group(function () {
+    Route::get('/training-sessions', [App\Http\Controllers\TrainingSessionController::class, 'index'])->name('training-sessions.index');
+    Route::get('/training-sessions/create', [App\Http\Controllers\TrainingSessionController::class, 'create'])->name('training-sessions.create');
+    Route::post('/training-sessions', [App\Http\Controllers\TrainingSessionController::class, 'store'])->name('training-sessions.store');
+    Route::get('/training-sessions/{trainingSession}/edit', [App\Http\Controllers\TrainingSessionController::class, 'edit'])->name('training-sessions.edit');
+    Route::put('/training-sessions/{trainingSession}', [App\Http\Controllers\TrainingSessionController::class, 'update'])->name('training-sessions.update');
+    Route::delete('/training-sessions/{trainingSession}', [App\Http\Controllers\TrainingSessionController::class, 'destroy'])->name('training-sessions.destroy');
+});
 
 // Instructor routes
 Route::get('/instructor/login', fn() => view('instructor.login'))->name('instructor.login');

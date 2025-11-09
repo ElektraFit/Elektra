@@ -9,7 +9,7 @@ use App\Http\Controllers\InstructorProfileController;
 
 Route::get('/', function () {
     return view('hero');
-});
+})->name('welcome');
 
 // Public pages
 Route::get('/instructors', [InstructorController::class, 'index'])->name('instructors');
@@ -64,7 +64,10 @@ Route::get('/dashboard', function () {
     }
     
     // Get all instructors for the instructors view
-    $instructors = \App\Models\Instructor::orderBy('created_at', 'desc')->get();
+    $instructors = \App\Models\Instructor::orderBy('created_at', 'desc')->get()->map(function ($instructor) {
+        $instructor->short_bio = \Illuminate\Support\Str::limit($instructor->bio, 100);
+        return $instructor;
+    });
     $stats['instructors'] = $instructors;
     
     return view('dashboard', $stats);

@@ -4,10 +4,15 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\InstructorController;
+use App\Http\Controllers\InstructorProfileController;
 
 Route::get('/', function () {
     return view('hero');
 });
+
+// Public pages
+Route::get('/instructors', [InstructorController::class, 'index'])->name('instructors');
 
 // Authentication routes
 Route::get('/login', fn() => view('auth.login'))->name('login');
@@ -37,6 +42,7 @@ Route::get('/dashboard', function () {
         'totalSessions' => 0,
         'weekHours' => 0,
         'weekSessions' => 0,
+        'sessions' => collect([]), // Initialize empty collection
     ];
     
     if ($user) {
@@ -50,7 +56,16 @@ Route::get('/dashboard', function () {
         $weekMinutes = $weekSessions->where('session_date', '>=', now()->startOfWeek())->sum('duration_minutes');
         $stats['weekHours'] = round($weekMinutes / 60, 1);
         $stats['weekSessions'] = $weekSessions->where('session_date', '>=', now()->startOfWeek())->count();
+        
+        // Get all training sessions for the training view
+        $stats['sessions'] = \App\Models\TrainingSession::where('user_id', $user->id)
+            ->orderBy('session_date', 'desc')
+            ->get();
     }
+    
+    // Get all instructors for the instructors view
+    $instructors = \App\Models\Instructor::orderBy('created_at', 'desc')->get();
+    $stats['instructors'] = $instructors;
     
     return view('dashboard', $stats);
 })->name('dashboard');
@@ -111,8 +126,14 @@ Route::get('/instructor/dashboard', function () {
     if (!Session::has('instructor_id')) {
         return redirect()->route('instructor.login');
     }
-    return view('instructor.dashboard');
+    $instructor = \App\Models\Instructor::find(Session::get('instructor_id'));
+    return view('instructor.dashboard', compact('instructor'));
 })->name('instructor.dashboard');
+
+// Instructor profile routes
+Route::get('/instructor/profile', [InstructorProfileController::class, 'show'])->name('instructor.profile');
+Route::post('/instructor/profile/photo', [InstructorProfileController::class, 'uploadPhoto'])->name('instructor.profile.photo.upload');
+Route::delete('/instructor/profile/photo', [InstructorProfileController::class, 'deletePhoto'])->name('instructor.profile.photo.delete');
 
 Route::post('/instructor/logout', function () {
     Session::forget(['instructor_id', 'instructor_name']);

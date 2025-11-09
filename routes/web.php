@@ -31,17 +31,58 @@ Route::post('/otp/verify', [AuthController::class, 'verifyMemberOtp'])->name('ot
 Route::get('/dashboard', function () {
     // Get userName from authenticated user or session
     $userName = 'Member';
+    $totalHours = 0;
+    $totalSessions = 0;
+    $weekSessions = 0;
+    $weekHours = 0;
     
     if (Auth::check()) {
         $userName = Auth::user()->name;
+        $userId = Auth::id();
+        
+        // Get training session statistics
+        $totalMinutes = \App\Models\TrainingSession::where('user_id', $userId)->sum('duration_minutes');
+        $totalHours = round($totalMinutes / 60, 1);
+        $totalSessions = \App\Models\TrainingSession::where('user_id', $userId)->count();
+        
+        // This week's statistics
+        $weekMinutes = \App\Models\TrainingSession::where('user_id', $userId)
+            ->where('session_date', '>=', now()->startOfWeek())
+            ->sum('duration_minutes');
+        $weekHours = round($weekMinutes / 60, 1);
+        $weekSessions = \App\Models\TrainingSession::where('user_id', $userId)
+            ->where('session_date', '>=', now()->startOfWeek())
+            ->count();
+            
     } elseif (Session::has('user_id')) {
         $user = \App\Models\User::find(Session::get('user_id'));
         if ($user) {
             $userName = $user->name;
+            $userId = $user->id;
+            
+            // Get training session statistics
+            $totalMinutes = \App\Models\TrainingSession::where('user_id', $userId)->sum('duration_minutes');
+            $totalHours = round($totalMinutes / 60, 1);
+            $totalSessions = \App\Models\TrainingSession::where('user_id', $userId)->count();
+            
+            // This week's statistics
+            $weekMinutes = \App\Models\TrainingSession::where('user_id', $userId)
+                ->where('session_date', '>=', now()->startOfWeek())
+                ->sum('duration_minutes');
+            $weekHours = round($weekMinutes / 60, 1);
+            $weekSessions = \App\Models\TrainingSession::where('user_id', $userId)
+                ->where('session_date', '>=', now()->startOfWeek())
+                ->count();
         }
     }
     
-    return view('dashboard', ['userName' => $userName]);
+    return view('dashboard', [
+        'userName' => $userName,
+        'totalHours' => $totalHours,
+        'totalSessions' => $totalSessions,
+        'weekHours' => $weekHours,
+        'weekSessions' => $weekSessions,
+    ]);
 })->name('dashboard');
 
 // Member logout route

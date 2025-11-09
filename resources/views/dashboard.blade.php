@@ -5,9 +5,15 @@
 @section('sidebar-nav')
     <ul>
         <li>
-            <a href="#" class="active">
+            <a href="{{ route('dashboard') }}" class="active">
                 <span class="nav-icon">🏠</span>
                 <span class="nav-text">Dashboard</span>
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('training-sessions.index') }}">
+                <span class="nav-icon">💪</span>
+                <span class="nav-text">Training Sessions</span>
             </a>
         </li>
         <li>

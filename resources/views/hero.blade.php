@@ -210,7 +210,7 @@
             For over a decade, ElektraFit has been the premier destination for fitness enthusiasts who demand excellence. Our state-of-the-art facility combines cutting-edge equipment with expert guidance to create an environment where transformation happens.
           </p>
           <p class="about-text">
-            We believe fitness is more than just physical exercise—it's about building mental strength, creating lasting habits, and becoming the best version of yourself. Our community of trainers and members supports each other every step of the way.
+            We believe fitness is more than just physical exercise, it's about building mental strength, creating lasting habits, and becoming the best version of yourself. Our community of trainers and members supports each other every step of the way.
           </p>
           
           <!-- Stats Grid -->

@@ -51,6 +51,16 @@ Route::post('/logout', function () {
     return redirect()->route('login')->with('status', 'Logged out successfully');
 })->name('logout');
 
+// Training Session routes (protected by auth middleware)
+Route::middleware('auth')->group(function () {
+    Route::get('/training-sessions', [App\Http\Controllers\TrainingSessionController::class, 'index'])->name('training-sessions.index');
+    Route::get('/training-sessions/create', [App\Http\Controllers\TrainingSessionController::class, 'create'])->name('training-sessions.create');
+    Route::post('/training-sessions', [App\Http\Controllers\TrainingSessionController::class, 'store'])->name('training-sessions.store');
+    Route::get('/training-sessions/{trainingSession}/edit', [App\Http\Controllers\TrainingSessionController::class, 'edit'])->name('training-sessions.edit');
+    Route::put('/training-sessions/{trainingSession}', [App\Http\Controllers\TrainingSessionController::class, 'update'])->name('training-sessions.update');
+    Route::delete('/training-sessions/{trainingSession}', [App\Http\Controllers\TrainingSessionController::class, 'destroy'])->name('training-sessions.destroy');
+});
+
 // Instructor routes
 Route::get('/instructor/login', fn() => view('instructor.login'))->name('instructor.login');
 Route::post('/instructor/login', [AuthController::class, 'instructorLogin'])->name('instructor.login.submit');

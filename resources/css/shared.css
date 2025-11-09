@@ -1,0 +1,188 @@
+/* Shared Glassmorphism and Animation Styles */
+
+/* Background animations */
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Glassmorphism effect */
+.glass-container {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 32px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37), 
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Common button styles */
+.btn-glass {
+    background: linear-gradient(135deg, rgba(0, 191, 255, 0.25), rgba(0, 128, 255, 0.25));
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 32px rgba(0, 191, 255, 0.25);
+}
+
+.btn-glass:hover {
+    transform: translateY(-2px) scale(1.01);
+    box-shadow: 0 12px 40px rgba(0, 191, 255, 0.4);
+    background: linear-gradient(135deg, rgba(0, 191, 255, 0.35), rgba(0, 128, 255, 0.35));
+    border-color: rgba(255, 255, 255, 0.25);
+}
+
+/* Purple variant for instructor portal */
+.btn-glass-purple {
+    background: #a855f7;
+    border: none;
+    box-shadow: 0 0 40px rgba(168, 85, 247, 0.3);
+}
+
+.btn-glass-purple:hover {
+    background: #9333ea;
+    box-shadow: 0 0 30px rgba(168, 85, 247, 0.6);
+    transform: translateY(-2px);
+}
+
+/* Common input styles */
+.input-glass {
+    width: 100%;
+    padding: 0.9rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: white;
+    font-size: 1rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.input-glass:focus {
+    outline: none;
+    border-color: rgba(0, 191, 255, 0.4);
+    background: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 4px 16px rgba(0, 191, 255, 0.2);
+    transform: translateY(-1px);
+}
+
+.input-glass::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* Purple variant for instructor inputs */
+.input-glass-purple {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(168, 85, 247, 0.4);
+}
+
+.input-glass-purple:focus {
+    border-color: #a855f7;
+    box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* Common background setup */
+.auth-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(0, 191, 255, 0.1) 0%, rgba(138, 43, 226, 0.1) 100%);
+    overflow: hidden;
+}
+
+.auth-background::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(0, 191, 255, 0.15) 0%, transparent 70%);
+    animation: rotate 20s linear infinite;
+}
+
+.auth-background-image {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.2;
+    filter: blur(2px);
+}
+
+.auth-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+/* Cyberpunk background for dashboards */
+.cyberpunk-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(138, 43, 226, 0.1) 0%, rgba(75, 0, 130, 0.1) 50%, rgba(148, 0, 211, 0.1) 100%);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+}
+
+.cyber-grid {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(rgba(0, 191, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 191, 255, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+}
+
+/* Typing animation */
+.typing-cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1em;
+    background: #00bfff;
+    margin-left: 5px;
+    animation: blink 1s infinite;
+    vertical-align: middle;
+}
+
+.typing-cursor-purple {
+    background: #a855f7;
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+/* Error message styling */
+.error-message {
+    background: rgba(255, 59, 48, 0.1);
+    border: 1px solid rgba(255, 59, 48, 0.3);
+    color: #ff3b30;
+    padding: 1rem;
+    border-radius: 10px;
+    margin-bottom: 1.5rem;
+}

@@ -3,6 +3,9 @@
 Thumbs.db
 desktop.ini
 
+# Local redirect file (specific to individual setups)
+/index.php
+
 # Environment files (keep .env.example tracked)
 .env
 .env.*
@@ -33,6 +36,7 @@ composer.phar
 /public/hot
 /public/build
 /public/storage
+/public/uploads/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

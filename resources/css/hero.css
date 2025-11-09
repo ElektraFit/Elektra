@@ -139,21 +139,27 @@ body {
 .hero-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 0.6);
     z-index: 1;
 }
 
-/* Navigation */
+/* Navigation with Glassmorphism */
 .site-nav {
-    position: relative;
-    z-index: 10;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 2rem;
-    background: rgba(15, 23, 42, 0.8);
-    backdrop-filter: blur(10px);
+    padding: 1.5rem 2rem;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 
 .brand {
@@ -200,18 +206,21 @@ body {
 .btn-join {
     color: white;
     text-decoration: none;
-    border: 2px solid #00bfff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
     padding: 0.75rem 1.5rem;
-    border-radius: 8px;
+    border-radius: 16px;
     font-weight: 600;
-    transition: all 0.3s ease;
-    background: rgba(0, 191, 255, 0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 4px 16px rgba(0, 191, 255, 0.15);
 }
 
 .btn-join:hover {
-    background: #00bfff;
-    color: #0f172a;
-    box-shadow: 0 0 20px rgba(0, 191, 255, 0.5);
+    background: rgba(0, 191, 255, 0.2);
+    border-color: rgba(0, 191, 255, 0.4);
+    box-shadow: 0 8px 24px rgba(0, 191, 255, 0.3);
     transform: translateY(-2px);
 }
 
@@ -270,42 +279,48 @@ body {
 }
 
 .btn-primary {
-    background: linear-gradient(45deg, #00bfff, #0080ff);
+    background: linear-gradient(135deg, rgba(0, 191, 255, 0.25), rgba(0, 128, 255, 0.25));
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
     color: white;
     padding: 1rem 2rem;
-    border-radius: 12px;
+    border-radius: 20px;
     text-decoration: none;
     font-weight: 700;
     font-size: 1.1rem;
-    transition: all 0.3s ease;
-    box-shadow: 0 10px 30px rgba(0, 191, 255, 0.3);
-    border: none;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 32px rgba(0, 191, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     cursor: pointer;
 }
 
 .btn-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 40px rgba(0, 191, 255, 0.5);
-    background: linear-gradient(45deg, #00a8e6, #0066cc);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 12px 40px rgba(0, 191, 255, 0.4);
+    background: linear-gradient(135deg, rgba(0, 191, 255, 0.35), rgba(0, 128, 255, 0.35));
+    border-color: rgba(255, 255, 255, 0.25);
 }
 
 .btn-outline {
-    background: transparent;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     color: white;
     padding: 1rem 2rem;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
     text-decoration: none;
     font-weight: 600;
     font-size: 1.1rem;
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .btn-outline:hover {
     background: rgba(255, 255, 255, 0.1);
-    border-color: #00bfff;
+    border-color: rgba(0, 191, 255, 0.4);
     color: #00bfff;
     transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 191, 255, 0.2);
 }
 
 .hero-stats {
@@ -314,6 +329,7 @@ body {
     list-style: none;
     flex-wrap: wrap;
     justify-content: center;
+    margin-top: 2rem;
 }
 
 .hero-stats li {
@@ -390,4 +406,504 @@ body {
         padding: 0.75rem 1.5rem;
         font-size: 1rem;
     }
+}
+
+/* Services Section with Glass Effect */
+.services-section {
+    padding: 5rem 2rem;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.8), rgba(15, 23, 42, 0.9));
+    position: relative;
+}
+
+.services-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.section-title {
+    font-size: 3rem;
+    font-weight: 900;
+    font-family: 'Orbitron', sans-serif;
+    text-align: center;
+    margin-bottom: 1rem;
+    background: linear-gradient(45deg, #ffffff, #00bfff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.section-subtitle {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.2rem;
+    margin-bottom: 3rem;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.service-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    padding: 2rem;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+}
+
+.service-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(0, 191, 255, 0.3);
+    box-shadow: 0 12px 40px rgba(0, 191, 255, 0.25);
+}
+
+.service-card h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #00bfff;
+    margin-bottom: 1rem;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.service-card p {
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+/* ========================================
+   ADDITIONAL SECTIONS STYLES
+   ======================================== */
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* Full screen sections */
+.full-section {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    position: relative;
+    scroll-margin-top: 0;
+}
+
+#services {
+    background: #1f2937;
+}
+
+#membership {
+    background: #111827;
+}
+
+#about {
+    background: #1a1a1a;
+}
+
+.section-content {
+    max-width: 1200px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+}
+
+.section-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: #ffffff;
+    text-shadow: 0 0 20px rgba(0, 191, 255, 0.5);
+    margin-bottom: 1rem;
+}
+
+.section-subtitle {
+    font-size: 1.25rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 3rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Membership Cards */
+.membership-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.membership-card {
+    background: rgba(10, 14, 39, 0.7);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 191, 255, 0.2);
+    border-radius: 20px;
+    padding: 2.5rem 2rem;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.membership-card.popular {
+    border-color: rgba(0, 191, 255, 0.6);
+    box-shadow: 0 0 30px rgba(0, 191, 255, 0.2);
+}
+
+.membership-card.popular::before {
+    content: 'Most Popular';
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #00bfff;
+    color: #0a0e27;
+    padding: 0.5rem 1.5rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.membership-card:hover {
+    transform: translateY(-10px);
+    border-color: rgba(0, 191, 255, 0.6);
+    box-shadow: 0 0 40px rgba(0, 191, 255, 0.3);
+}
+
+.membership-card h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2rem;
+    color: #ffffff;
+    margin-bottom: 1.5rem;
+}
+
+.membership-price {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #00bfff;
+    text-shadow: 0 0 20px rgba(0, 191, 255, 0.5);
+    margin-bottom: 0.5rem;
+}
+
+.membership-price span {
+    font-size: 1.25rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.membership-description {
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 2rem;
+    font-size: 0.95rem;
+}
+
+.membership-features {
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0;
+    text-align: left;
+}
+
+.membership-features li {
+    color: rgba(255, 255, 255, 0.8);
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.membership-features li::before {
+    content: '✓';
+    color: #00bfff;
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+
+.membership-button {
+    width: 100%;
+    padding: 1rem 2rem;
+    background: rgba(0, 191, 255, 0.1);
+    border: 2px solid #00bfff;
+    border-radius: 12px;
+    color: #00bfff;
+    font-weight: 600;
+    font-family: 'Orbitron', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.membership-button:hover {
+    background: #00bfff;
+    color: #0a0e27;
+    box-shadow: 0 0 30px rgba(0, 191, 255, 0.5);
+    transform: translateY(-2px);
+}
+
+.membership-card.popular .membership-button {
+    background: #00bfff;
+    color: #0a0e27;
+}
+
+.membership-card.popular .membership-button:hover {
+    background: rgba(0, 191, 255, 0.8);
+}
+
+/* Services Grid - Updated */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.service-card {
+    background: rgba(26, 26, 26, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 3rem 2rem;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    text-align: center;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    border-color: rgba(0, 191, 255, 0.4);
+    box-shadow: 0 10px 40px rgba(0, 191, 255, 0.2);
+}
+
+.service-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    margin-bottom: 1.5rem;
+    color: #00bfff;
+}
+
+.service-icon svg {
+    width: 48px;
+    height: 48px;
+}
+
+.service-card h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 1rem;
+}
+
+.service-card p {
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+/* About Section */
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    margin-top: 3rem;
+    text-align: left;
+}
+
+@media (max-width: 968px) {
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+}
+
+.about-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 1.5rem;
+}
+
+.about-text {
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+}
+
+.about-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+}
+
+.about-stat-card {
+    background: rgba(26, 26, 26, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.about-stat-card:hover {
+    border-color: rgba(0, 191, 255, 0.4);
+    transform: translateY(-5px);
+}
+
+.stat-icon {
+    color: #00bfff;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.875rem;
+}
+
+.about-card {
+    background: rgba(26, 26, 26, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.about-card:hover {
+    border-color: rgba(0, 191, 255, 0.4);
+}
+
+.about-card h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 1rem;
+}
+
+.about-card p {
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.7;
+    font-size: 0.95rem;
+}
+
+/* Instructor Login Section */
+.instructor-login-section {
+    margin-top: 4rem;
+    text-align: center;
+    padding: 2rem;
+    background: rgba(138, 43, 226, 0.05);
+    border: 1px solid rgba(138, 43, 226, 0.2);
+    border-radius: 16px;
+}
+
+.instructor-login-text {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.125rem;
+    margin-bottom: 1rem;
+}
+
+.instructor-login-btn {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    background: rgba(138, 43, 226, 0.1);
+    border: 2px solid #8a2be2;
+    border-radius: 12px;
+    color: #8a2be2;
+    font-weight: 600;
+    font-family: 'Orbitron', sans-serif;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.instructor-login-btn:hover {
+    background: #8a2be2;
+    color: #ffffff;
+    box-shadow: 0 0 30px rgba(138, 43, 226, 0.5);
+    transform: translateY(-2px);
+}
+/* Optimized Hero Section Classes */
+.hero-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.hero-bg-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.hero-effects {
+    position: absolute;
+    inset: 0;
+}
+
+.effect-orb {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(64px);
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.orb-1 {
+    top: 25%;
+    left: 25%;
+    width: 8rem;
+    height: 8rem;
+    background-color: rgba(0, 191, 255, 0.3);
+}
+
+.orb-2 {
+    bottom: 33%;
+    right: 25%;
+    width: 6rem;
+    height: 6rem;
+    background-color: rgba(147, 197, 253, 0.3);
+    animation-delay: 1s;
+}
+
+.orb-3 {
+    top: 50%;
+    right: 33%;
+    width: 4rem;
+    height: 4rem;
+    background-color: rgba(0, 191, 255, 0.4);
+    filter: blur(24px);
+    animation-delay: 0.5s;
+}
+
+.logo-filter {
+    filter: brightness(0) saturate(100%) invert(64%) sepia(100%) saturate(1000%) hue-rotate(170deg);
+}
+
+.nav-buttons {
+    display: flex;
+    gap: 1rem;
 }

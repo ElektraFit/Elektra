@@ -303,9 +303,9 @@
 <style>
 /* Container */
 .training-sessions-container {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 2rem;
+    padding: 3rem 2rem;
 }
 
 /* Page Header */
@@ -313,7 +313,7 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
     gap: 2rem;
 }
 
@@ -322,15 +322,15 @@
 }
 
 .page-title {
-    font-size: 2rem;
+    font-size: 2.5rem;
     font-weight: 700;
     color: #fff;
-    margin: 0 0 0.5rem 0;
+    margin: 0 0 0.75rem 0;
     letter-spacing: -0.02em;
 }
 
 .page-subtitle {
-    font-size: 1rem;
+    font-size: 1.125rem;
     color: rgba(255, 255, 255, 0.6);
     margin: 0;
 }
@@ -386,19 +386,19 @@
 /* Stats Grid */
 .stats-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
 }
 
 .stat-card {
     display: flex;
     align-items: center;
-    gap: 1rem;
-    padding: 1.5rem;
+    gap: 1.5rem;
+    padding: 2rem;
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
+    border-radius: 16px;
     transition: all 0.3s ease;
 }
 
@@ -409,12 +409,12 @@
 }
 
 .stat-icon {
-    width: 48px;
-    height: 48px;
+    width: 56px;
+    height: 56px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 10px;
+    border-radius: 12px;
     flex-shrink: 0;
 }
 
@@ -435,15 +435,15 @@
 }
 
 .stat-value {
-    font-size: 1.75rem;
+    font-size: 2rem;
     font-weight: 700;
     color: #fff;
     line-height: 1;
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.5rem;
 }
 
 .stat-label {
-    font-size: 0.875rem;
+    font-size: 0.9375rem;
     color: rgba(255, 255, 255, 0.6);
     font-weight: 500;
 }
@@ -452,14 +452,14 @@
 .sessions-list {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.5rem;
 }
 
 .session-card {
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    padding: 1.5rem;
+    border-radius: 16px;
+    padding: 2rem;
     transition: all 0.3s ease;
 }
 
@@ -473,25 +473,25 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 1rem;
-    gap: 1rem;
+    margin-bottom: 1.5rem;
+    gap: 1.5rem;
 }
 
 .session-title-wrapper {
     display: flex;
     align-items: flex-start;
-    gap: 1rem;
+    gap: 1.25rem;
     flex: 1;
 }
 
 .session-type-icon {
-    width: 40px;
-    height: 40px;
+    width: 48px;
+    height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
     background: rgba(102, 126, 234, 0.1);
-    border-radius: 10px;
+    border-radius: 12px;
     flex-shrink: 0;
 }
 
@@ -500,24 +500,24 @@
 }
 
 .session-type {
-    font-size: 1.125rem;
+    font-size: 1.25rem;
     font-weight: 600;
     color: #fff;
-    margin: 0 0 0.25rem 0;
+    margin: 0 0 0.5rem 0;
 }
 
 .session-description {
-    font-size: 0.875rem;
+    font-size: 0.9375rem;
     color: rgba(255, 255, 255, 0.5);
     margin: 0;
-    line-height: 1.4;
+    line-height: 1.5;
 }
 
 /* Intensity Badge */
 .intensity-badge {
-    padding: 0.375rem 0.875rem;
-    border-radius: 20px;
-    font-size: 0.75rem;
+    padding: 0.5rem 1rem;
+    border-radius: 24px;
+    font-size: 0.8125rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -546,18 +546,18 @@
 .session-details {
     display: flex;
     flex-wrap: wrap;
-    gap: 1.5rem;
-    margin-bottom: 1rem;
-    padding-bottom: 1rem;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .detail-item {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.625rem;
     color: rgba(255, 255, 255, 0.7);
-    font-size: 0.875rem;
+    font-size: 0.9375rem;
 }
 
 .detail-icon {
@@ -568,11 +568,11 @@
 /* Session Notes */
 .session-notes {
     display: flex;
-    gap: 0.75rem;
-    padding: 1rem;
+    gap: 1rem;
+    padding: 1.25rem;
     background: rgba(255, 255, 255, 0.02);
-    border-radius: 8px;
-    margin-bottom: 1rem;
+    border-radius: 10px;
+    margin-bottom: 1.5rem;
 }
 
 .notes-icon {
@@ -583,7 +583,7 @@
 
 .session-notes p {
     color: rgba(255, 255, 255, 0.6);
-    font-size: 0.875rem;
+    font-size: 0.9375rem;
     line-height: 1.6;
     margin: 0;
 }
@@ -591,16 +591,16 @@
 /* Session Actions */
 .session-actions {
     display: flex;
-    gap: 0.75rem;
+    gap: 1rem;
 }
 
 .btn-action {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.625rem 1rem;
-    border-radius: 8px;
-    font-size: 0.875rem;
+    gap: 0.625rem;
+    padding: 0.75rem 1.25rem;
+    border-radius: 10px;
+    font-size: 0.9375rem;
     font-weight: 500;
     text-decoration: none;
     border: none;
@@ -637,28 +637,29 @@
 /* Empty State */
 .empty-state {
     text-align: center;
-    padding: 4rem 2rem;
+    padding: 5rem 2rem;
     background: rgba(255, 255, 255, 0.02);
     border: 2px dashed rgba(255, 255, 255, 0.1);
-    border-radius: 16px;
+    border-radius: 20px;
 }
 
 .empty-icon {
-    margin: 0 auto 1.5rem;
+    margin: 0 auto 2rem;
     color: rgba(255, 255, 255, 0.2);
 }
 
 .empty-state h2 {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     font-weight: 700;
     color: #fff;
-    margin: 0 0 0.75rem 0;
+    margin: 0 0 1rem 0;
 }
 
 .empty-state p {
-    font-size: 1rem;
+    font-size: 1.125rem;
     color: rgba(255, 255, 255, 0.5);
-    margin: 0 0 2rem 0;
+    margin: 0 0 2.5rem 0;
+    line-height: 1.6;
 }
 
 /* Responsive Design */

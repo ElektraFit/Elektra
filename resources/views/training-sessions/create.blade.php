@@ -252,9 +252,9 @@
 <style>
 /* Container */
 .form-container {
-    max-width: 900px;
+    max-width: 1000px;
     margin: 0 auto;
-    padding: 2rem;
+    padding: 3rem 2rem;
 }
 
 /* Page Header */
@@ -262,20 +262,20 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
     gap: 2rem;
 }
 
 .page-title {
-    font-size: 2rem;
+    font-size: 2.5rem;
     font-weight: 700;
     color: #fff;
-    margin: 0 0 0.5rem 0;
+    margin: 0 0 0.75rem 0;
     letter-spacing: -0.02em;
 }
 
 .page-subtitle {
-    font-size: 1rem;
+    font-size: 1.125rem;
     color: rgba(255, 255, 255, 0.6);
     margin: 0;
 }
@@ -310,7 +310,7 @@
 }
 
 .form-section {
-    padding: 2rem;
+    padding: 2.5rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
@@ -319,16 +319,16 @@
 }
 
 .section-title {
-    font-size: 1.25rem;
+    font-size: 1.375rem;
     font-weight: 600;
     color: #fff;
-    margin: 0 0 1.5rem 0;
+    margin: 0 0 2rem 0;
 }
 
 .form-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
+    gap: 2rem;
 }
 
 .form-group {
@@ -346,8 +346,8 @@ label {
     gap: 0.5rem;
     color: rgba(255, 255, 255, 0.9);
     font-weight: 500;
-    font-size: 0.875rem;
-    margin-bottom: 0.5rem;
+    font-size: 0.9375rem;
+    margin-bottom: 0.75rem;
 }
 
 .label-icon {
@@ -367,12 +367,12 @@ label {
 
 .form-control {
     width: 100%;
-    padding: 0.875rem 1rem;
+    padding: 1rem 1.25rem;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
+    border-radius: 10px;
     color: #fff;
-    font-size: 0.9375rem;
+    font-size: 1rem;
     font-family: inherit;
     transition: all 0.2s ease;
 }
@@ -424,8 +424,8 @@ textarea.form-control {
 .form-actions {
     display: flex;
     justify-content: flex-end;
-    gap: 1rem;
-    padding: 1.5rem 2rem;
+    gap: 1.25rem;
+    padding: 2rem 2.5rem;
     background: rgba(255, 255, 255, 0.02);
 }
 
@@ -433,12 +433,12 @@ textarea.form-control {
 .btn-secondary {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.875rem 1.5rem;
+    gap: 0.625rem;
+    padding: 1rem 1.75rem;
     border: none;
     border-radius: 10px;
     font-weight: 600;
-    font-size: 0.9375rem;
+    font-size: 1rem;
     text-decoration: none;
     cursor: pointer;
     transition: all 0.3s ease;

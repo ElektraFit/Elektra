@@ -454,30 +454,53 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const navItems = document.querySelectorAll('[data-view]');
+            // Function to show a specific view
+            function showView(viewName) {
+                // Hide all content views
+                document.querySelectorAll('.content-view').forEach(view => {
+                    view.classList.remove('active');
+                });
+                
+                // Show selected view
+                const targetView = document.getElementById(viewName + '-view');
+                if (targetView) {
+                    targetView.classList.add('active');
+                }
+                
+                // Update active nav item
+                document.querySelectorAll('.sidebar-nav a').forEach(link => {
+                    link.classList.remove('active');
+                });
+                
+                const activeLink = document.querySelector(`a[href*="${viewName}"]`);
+                if (activeLink) {
+                    activeLink.classList.add('active');
+                }
+            }
             
+            // Check for hash in URL on page load
+            function checkHash() {
+                const hash = window.location.hash.substring(1); // Remove the # symbol
+                if (hash === 'instructors') {
+                    showView('instructors');
+                } else {
+                    showView('dashboard');
+                }
+            }
+            
+            // Run on page load
+            checkHash();
+            
+            // Listen for hash changes
+            window.addEventListener('hashchange', checkHash);
+            
+            // Handle clicks on navigation items with data-view
+            const navItems = document.querySelectorAll('[data-view]');
             navItems.forEach(item => {
                 item.addEventListener('click', function(e) {
                     e.preventDefault();
-                    
                     const viewName = this.getAttribute('data-view');
-                    
-                    // Remove active class from all nav items
-                    navItems.forEach(nav => nav.classList.remove('active'));
-                    
-                    // Add active class to clicked item
-                    this.classList.add('active');
-                    
-                    // Hide all content views
-                    document.querySelectorAll('.content-view').forEach(view => {
-                        view.classList.remove('active');
-                    });
-                    
-                    // Show selected view
-                    const targetView = document.getElementById(viewName + '-view');
-                    if (targetView) {
-                        targetView.classList.add('active');
-                    }
+                    showView(viewName);
                 });
             });
         });

@@ -6,6 +6,7 @@
     <ul>
         <x-nav-item href="#" icon="■" label="Dashboard" :active="true" data-view="dashboard" />
         <x-nav-item href="#" icon="⚡" label="Training Sessions" data-view="training" />
+        <x-nav-item href="{{ route('nutrition.index') }}" icon="🍎" label="Nutrition" />
         <x-nav-item href="#" icon="▲" label="Instructors" data-view="instructors" />
     </ul>
 @endsection

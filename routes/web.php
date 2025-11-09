@@ -85,6 +85,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/training-sessions/{trainingSession}/edit', [App\Http\Controllers\TrainingSessionController::class, 'edit'])->name('training-sessions.edit');
     Route::put('/training-sessions/{trainingSession}', [App\Http\Controllers\TrainingSessionController::class, 'update'])->name('training-sessions.update');
     Route::delete('/training-sessions/{trainingSession}', [App\Http\Controllers\TrainingSessionController::class, 'destroy'])->name('training-sessions.destroy');
+    
+    // Nutrition tracking routes
+    Route::get('/nutrition', [App\Http\Controllers\NutritionController::class, 'index'])->name('nutrition.index');
+    Route::post('/nutrition/search', [App\Http\Controllers\NutritionController::class, 'search'])->name('nutrition.search');
+    Route::post('/nutrition/meals', [App\Http\Controllers\NutritionController::class, 'store'])->name('nutrition.store');
+    Route::delete('/nutrition/meals/{meal}', [App\Http\Controllers\NutritionController::class, 'destroy'])->name('nutrition.destroy');
 });
 
 // Instructor routes

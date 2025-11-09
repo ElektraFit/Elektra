@@ -53,6 +53,14 @@ class NutritionController extends Controller
         $query = $request->input('query');
         $apiKey = env('CALORIENINJAS_API_KEY');
 
+        // Check if API key is configured
+        if (empty($apiKey)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'CalorieNinjas API key is not configured. Please add CALORIENINJAS_API_KEY to your .env file.',
+            ], 500);
+        }
+
         // Log for debugging
         \Log::info('CalorieNinjas API Request', [
             'query' => $query,
@@ -60,13 +68,16 @@ class NutritionController extends Controller
         ]);
 
         try {
-            $response = Http::withOptions([
-                'verify' => false, // Disable SSL verification
-            ])->withHeaders([
-                'X-Api-Key' => $apiKey,
-            ])->get('https://api.calorieninjas.com/v1/nutrition', [
-                'query' => $query,
-            ]);
+            $response = Http::timeout(10)
+                ->withOptions([
+                    'verify' => false, // Disable SSL verification
+                ])
+                ->withHeaders([
+                    'X-Api-Key' => $apiKey,
+                ])
+                ->get('https://api.calorieninjas.com/v1/nutrition', [
+                    'query' => $query,
+                ]);
 
             \Log::info('CalorieNinjas API Response', [
                 'status' => $response->status(),
@@ -81,12 +92,29 @@ class NutritionController extends Controller
                 ]);
             }
 
+            // Handle specific status codes
+            if ($response->status() == 502) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'CalorieNinjas API is temporarily unavailable. Please try again later.',
+                ], 502);
+            }
+
             return response()->json([
                 'success' => false,
-                'message' => 'API returned status: ' . $response->status(),
+                'message' => 'API returned status: ' . $response->status() . '. Please check your API key or try again later.',
                 'details' => $response->body(),
             ], 400);
 
+        } catch (\Illuminate\Http\Client\ConnectionException $e) {
+            \Log::error('CalorieNinjas API Connection Error', [
+                'message' => $e->getMessage(),
+            ]);
+            
+            return response()->json([
+                'success' => false,
+                'message' => 'Unable to connect to CalorieNinjas API. Please check your internet connection or try again later.',
+            ], 500);
         } catch (\Exception $e) {
             \Log::error('CalorieNinjas API Error', [
                 'message' => $e->getMessage(),
@@ -95,7 +123,7 @@ class NutritionController extends Controller
             
             return response()->json([
                 'success' => false,
-                'message' => 'Error: ' . $e->getMessage(),
+                'message' => 'An error occurred while searching for food. Please try again.',
             ], 500);
         }
     }

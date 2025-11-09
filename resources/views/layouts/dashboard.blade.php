@@ -6,6 +6,7 @@
     <title>@yield('title', 'Dashboard - ElektraFit')</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Orbitron:wght@600;700&display=swap" rel="stylesheet">
     @vite(['resources/css/shared.css', 'resources/css/dashboard.css'])
+    @stack('styles')
 </head>
 <body style="font-family: 'Inter', sans-serif; background: #0a0e27; color: white; margin: 0; padding: 0;">
     <!-- Background Effects -->
@@ -16,10 +17,10 @@
     <aside class="sidebar @yield('sidebar-class')" id="sidebar">
         <div class="sidebar-toggle" onclick="toggleSidebar()">◀</div>
         
-        <div class="sidebar-brand">
+        <a href="{{ route('welcome') }}" class="sidebar-brand" style="text-decoration: none; color: inherit; cursor: pointer;">
             <img src="{{ asset('images/logo.png') }}" alt="ElektraFit Logo" style="filter: brightness(0) saturate(100%) invert(64%) sepia(100%) saturate(1000%) hue-rotate(170deg);">
             <h2>@yield('brand-name', 'ElektraFit')</h2>
-        </div>
+        </a>
 
         <nav class="sidebar-nav">
             @yield('sidebar-nav')
@@ -60,5 +61,6 @@
 
         @yield('scripts')
     </script>
+    @stack('scripts')
 </body>
 </html>

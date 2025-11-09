@@ -3,26 +3,11 @@
 @section('title', 'Nutrition Tracker - ElektraFit')
 
 @section('sidebar-nav')
-    <ul>
-        <x-nav-item href="{{ route('dashboard') }}" icon="■" label="Dashboard" />
-        <x-nav-item href="{{ route('training-sessions.index') }}" icon="⚡" label="Training Sessions" />
-        <x-nav-item href="{{ route('nutrition.index') }}" icon="🍎" label="Nutrition" :active="true" />
-        <x-nav-item href="#" icon="▲" label="Instructors" />
-    </ul>
+    <x-navigation active="nutrition" />
 @endsection
 
 @section('logout-button')
-    <form method="POST" action="{{ route('logout') }}">
-        @csrf
-        <button type="submit" class="btn-logout">
-            <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-                <polyline points="16 17 21 12 16 7"></polyline>
-                <line x1="21" y1="12" x2="9" y2="12"></line>
-            </svg>
-            <span class="nav-text">Logout</span>
-        </button>
-    </form>
+    <x-logout-button />
 @endsection
 
 @section('content')
@@ -37,7 +22,11 @@
     <!-- Today's Summary -->
     <div class="nutrition-summary">
         <div class="summary-card calories-card">
-            <div class="summary-icon">🔥</div>
+            <div class="summary-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                </svg>
+            </div>
             <div class="summary-content">
                 <div class="summary-value">{{ number_format($todayTotals['calories'], 0) }}</div>
                 <div class="summary-label">Calories</div>
@@ -45,7 +34,11 @@
         </div>
         
         <div class="summary-card protein-card">
-            <div class="summary-icon">💪</div>
+            <div class="summary-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M2 12c.6-2.2 1.8-4 3.5-4s2.9 1.8 3.5 4c.6 2.2 1.8 4 3.5 4s2.9-1.8 3.5-4c.6-2.2 1.8-4 3.5-4s2.9 1.8 3.5 4"></path>
+                </svg>
+            </div>
             <div class="summary-content">
                 <div class="summary-value">{{ number_format($todayTotals['protein'], 1) }}g</div>
                 <div class="summary-label">Protein</div>
@@ -53,7 +46,12 @@
         </div>
         
         <div class="summary-card carbs-card">
-            <div class="summary-icon">🌾</div>
+            <div class="summary-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+            </div>
             <div class="summary-content">
                 <div class="summary-value">{{ number_format($todayTotals['carbs'], 1) }}g</div>
                 <div class="summary-label">Carbs</div>
@@ -61,7 +59,11 @@
         </div>
         
         <div class="summary-card fat-card">
-            <div class="summary-icon">🥑</div>
+            <div class="summary-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
+                </svg>
+            </div>
             <div class="summary-content">
                 <div class="summary-value">{{ number_format($todayTotals['fat'], 1) }}g</div>
                 <div class="summary-label">Fat</div>

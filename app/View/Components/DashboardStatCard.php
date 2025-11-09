@@ -16,7 +16,7 @@ class DashboardStatCard extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct($icon, $value, $label, $instructor = false)
+    public function __construct($value, $label, $icon = null, $instructor = false)
     {
         $this->icon = $icon;
         $this->value = $value;

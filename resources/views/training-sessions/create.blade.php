@@ -6,19 +6,29 @@
     <ul>
         <li>
             <a href="{{ route('dashboard') }}">
-                <span class="nav-icon">🏠</span>
+                <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
                 <span class="nav-text">Dashboard</span>
             </a>
         </li>
         <li>
             <a href="{{ route('training-sessions.index') }}" class="active">
-                <span class="nav-icon">💪</span>
+                <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                </svg>
                 <span class="nav-text">Training Sessions</span>
             </a>
         </li>
         <li>
             <a href="#">
-                <span class="nav-icon">🎓</span>
+                <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
                 <span class="nav-text">Instructors</span>
             </a>
         </li>
@@ -29,67 +39,80 @@
     <form method="POST" action="{{ route('logout') }}">
         @csrf
         <button type="submit" class="btn-logout">
-            <span class="nav-icon">🚪</span>
+            <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                <polyline points="16 17 21 12 16 7"></polyline>
+                <line x1="21" y1="12" x2="9" y2="12"></line>
+            </svg>
             <span class="nav-text">Logout</span>
         </button>
     </form>
 @endsection
 
 @section('content')
-<div class="form-page">
+<div class="form-container">
+    <!-- Page Header -->
     <div class="page-header">
-        <div class="header-content">
-            <a href="{{ route('training-sessions.index') }}" class="btn-back">
-                <span>←</span> Back to Sessions
-            </a>
-            <h1 class="page-title">
-                <span class="title-icon">📝</span>
-                Log Training Session
-            </h1>
+        <div>
+            <h1 class="page-title">Log Training Session</h1>
             <p class="page-subtitle">Record your workout details and track your progress</p>
         </div>
+        <a href="{{ route('training-sessions.index') }}" class="btn-back">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            <span>Back to Sessions</span>
+        </a>
     </div>
 
+    <!-- Form -->
     <form action="{{ route('training-sessions.store') }}" method="POST" class="training-form">
         @csrf
 
         <div class="form-section">
-            <h2 class="section-title">
-                <span class="section-icon">🏋️</span>
-                Workout Details
-            </h2>
+            <h3 class="section-title">Workout Details</h3>
+            
+            <div class="form-grid">
+                <div class="form-group full-width">
+                    <label for="training_type">
+                        <svg class="label-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                        </svg>
+                        Training Type
+                        <span class="required">*</span>
+                    </label>
+                    <select name="training_type" id="training_type" class="form-control" required>
+                        <option value="">Select training type</option>
+                        <option value="Cardio" {{ old('training_type') == 'Cardio' ? 'selected' : '' }}>Cardio</option>
+                        <option value="Strength Training" {{ old('training_type') == 'Strength Training' ? 'selected' : '' }}>Strength Training</option>
+                        <option value="Yoga" {{ old('training_type') == 'Yoga' ? 'selected' : '' }}>Yoga</option>
+                        <option value="Pilates" {{ old('training_type') == 'Pilates' ? 'selected' : '' }}>Pilates</option>
+                        <option value="CrossFit" {{ old('training_type') == 'CrossFit' ? 'selected' : '' }}>CrossFit</option>
+                        <option value="HIIT" {{ old('training_type') == 'HIIT' ? 'selected' : '' }}>HIIT</option>
+                        <option value="Boxing" {{ old('training_type') == 'Boxing' ? 'selected' : '' }}>Boxing</option>
+                        <option value="Swimming" {{ old('training_type') == 'Swimming' ? 'selected' : '' }}>Swimming</option>
+                        <option value="Cycling" {{ old('training_type') == 'Cycling' ? 'selected' : '' }}>Cycling</option>
+                        <option value="Running" {{ old('training_type') == 'Running' ? 'selected' : '' }}>Running</option>
+                        <option value="Other" {{ old('training_type') == 'Other' ? 'selected' : '' }}>Other</option>
+                    </select>
+                    @error('training_type')
+                        <span class="error-message">{{ $message }}</span>
+                    @enderror
+                </div>
 
-            <div class="form-group">
-                <label for="training_type">
-                    <span class="label-icon">🎯</span>
-                    Training Type *
-                </label>
-                <select name="training_type" id="training_type" required>
-                    <option value="">Select training type...</option>
-                    <option value="Cardio" {{ old('training_type') == 'Cardio' ? 'selected' : '' }}>🏃 Cardio</option>
-                    <option value="Strength Training" {{ old('training_type') == 'Strength Training' ? 'selected' : '' }}>🏋️ Strength Training</option>
-                    <option value="Yoga" {{ old('training_type') == 'Yoga' ? 'selected' : '' }}>🧘 Yoga</option>
-                    <option value="Pilates" {{ old('training_type') == 'Pilates' ? 'selected' : '' }}>🤸 Pilates</option>
-                    <option value="CrossFit" {{ old('training_type') == 'CrossFit' ? 'selected' : '' }}>⚡ CrossFit</option>
-                    <option value="HIIT" {{ old('training_type') == 'HIIT' ? 'selected' : '' }}>🔥 HIIT</option>
-                    <option value="Boxing" {{ old('training_type') == 'Boxing' ? 'selected' : '' }}>🥊 Boxing</option>
-                    <option value="Swimming" {{ old('training_type') == 'Swimming' ? 'selected' : '' }}>🏊 Swimming</option>
-                    <option value="Cycling" {{ old('training_type') == 'Cycling' ? 'selected' : '' }}>🚴 Cycling</option>
-                    <option value="Running" {{ old('training_type') == 'Running' ? 'selected' : '' }}>🏃 Running</option>
-                    <option value="Other" {{ old('training_type') == 'Other' ? 'selected' : '' }}>💪 Other</option>
-                </select>
-                @error('training_type')
-                    <span class="error-message">{{ $message }}</span>
-                @enderror
-            </div>
-
-            <div class="form-row">
                 <div class="form-group">
                     <label for="session_date">
-                        <span class="label-icon">📅</span>
-                        Date *
+                        <svg class="label-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="16" y1="2" x2="16" y2="6"></line>
+                            <line x1="8" y1="2" x2="8" y2="6"></line>
+                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                        </svg>
+                        Date
+                        <span class="required">*</span>
                     </label>
-                    <input type="date" name="session_date" id="session_date" value="{{ old('session_date', date('Y-m-d')) }}" required>
+                    <input type="date" name="session_date" id="session_date" class="form-control" value="{{ old('session_date', date('Y-m-d')) }}" required>
                     @error('session_date')
                         <span class="error-message">{{ $message }}</span>
                     @enderror
@@ -97,23 +120,29 @@
 
                 <div class="form-group">
                     <label for="session_time">
-                        <span class="label-icon">🕐</span>
-                        Time *
+                        <svg class="label-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                        Time
+                        <span class="required">*</span>
                     </label>
-                    <input type="time" name="session_time" id="session_time" value="{{ old('session_time') }}" required>
+                    <input type="time" name="session_time" id="session_time" class="form-control" value="{{ old('session_time') }}" required>
                     @error('session_time')
                         <span class="error-message">{{ $message }}</span>
                     @enderror
                 </div>
-            </div>
 
-            <div class="form-row">
                 <div class="form-group">
                     <label for="duration_minutes">
-                        <span class="label-icon">⏲️</span>
-                        Duration (minutes) *
+                        <svg class="label-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                        Duration (minutes)
+                        <span class="required">*</span>
                     </label>
-                    <input type="number" name="duration_minutes" id="duration_minutes" value="{{ old('duration_minutes') }}" min="1" placeholder="e.g., 45" required>
+                    <input type="number" name="duration_minutes" id="duration_minutes" class="form-control" value="{{ old('duration_minutes') }}" min="1" placeholder="60" required>
                     @error('duration_minutes')
                         <span class="error-message">{{ $message }}</span>
                     @enderror
@@ -121,231 +150,249 @@
 
                 <div class="form-group">
                     <label for="intensity">
-                        <span class="label-icon">🔥</span>
-                        Intensity *
+                        <svg class="label-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+                        </svg>
+                        Intensity
+                        <span class="required">*</span>
                     </label>
-                    <select name="intensity" id="intensity" required>
-                        <option value="low" {{ old('intensity') == 'low' ? 'selected' : '' }}>😌 Low</option>
-                        <option value="moderate" {{ old('intensity', 'moderate') == 'moderate' ? 'selected' : '' }}>💪 Moderate</option>
-                        <option value="high" {{ old('intensity') == 'high' ? 'selected' : '' }}>🔥 High</option>
+                    <select name="intensity" id="intensity" class="form-control" required>
+                        <option value="low" {{ old('intensity') == 'low' ? 'selected' : '' }}>Low</option>
+                        <option value="moderate" {{ old('intensity', 'moderate') == 'moderate' ? 'selected' : '' }}>Moderate</option>
+                        <option value="high" {{ old('intensity') == 'high' ? 'selected' : '' }}>High</option>
                     </select>
                     @error('intensity')
                         <span class="error-message">{{ $message }}</span>
                     @enderror
                 </div>
             </div>
-
-            <div class="form-group">
-                <label for="instructor_id">
-                    <span class="label-icon">👤</span>
-                    Instructor (Optional)
-                </label>
-                <select name="instructor_id" id="instructor_id">
-                    <option value="">No instructor / Self-training</option>
-                    @foreach($instructors as $instructor)
-                        <option value="{{ $instructor->id }}" {{ old('instructor_id') == $instructor->id ? 'selected' : '' }}>
-                            {{ $instructor->name }}
-                        </option>
-                    @endforeach
-                </select>
-                @error('instructor_id')
-                    <span class="error-message">{{ $message }}</span>
-                @enderror
-            </div>
         </div>
 
         <div class="form-section">
-            <h2 class="section-title">
-                <span class="section-icon">📝</span>
-                Additional Information
-            </h2>
+            <h3 class="section-title">Additional Information</h3>
+            
+            <div class="form-grid">
+                <div class="form-group full-width">
+                    <label for="instructor_id">
+                        <svg class="label-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                        Instructor
+                        <span class="optional">(Optional)</span>
+                    </label>
+                    <select name="instructor_id" id="instructor_id" class="form-control">
+                        <option value="">No instructor</option>
+                        @foreach($instructors as $instructor)
+                            <option value="{{ $instructor->id }}" {{ old('instructor_id') == $instructor->id ? 'selected' : '' }}>
+                                {{ $instructor->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('instructor_id')
+                        <span class="error-message">{{ $message }}</span>
+                    @enderror
+                </div>
 
-            <div class="form-group">
-                <label for="description">
-                    <span class="label-icon">📄</span>
-                    Description
-                </label>
-                <textarea name="description" id="description" rows="3" placeholder="Brief description of your workout (e.g., '5km morning run', '30 min upper body workout')">{{ old('description') }}</textarea>
-                @error('description')
-                    <span class="error-message">{{ $message }}</span>
-                @enderror
-            </div>
+                <div class="form-group full-width">
+                    <label for="description">
+                        <svg class="label-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="17" y1="10" x2="3" y2="10"></line>
+                            <line x1="21" y1="6" x2="3" y2="6"></line>
+                            <line x1="21" y1="14" x2="3" y2="14"></line>
+                            <line x1="17" y1="18" x2="3" y2="18"></line>
+                        </svg>
+                        Description
+                    </label>
+                    <textarea name="description" id="description" class="form-control" rows="3" placeholder="Brief description of your workout">{{ old('description') }}</textarea>
+                    @error('description')
+                        <span class="error-message">{{ $message }}</span>
+                    @enderror
+                </div>
 
-            <div class="form-group">
-                <label for="notes">
-                    <span class="label-icon">💬</span>
-                    Notes
-                </label>
-                <textarea name="notes" id="notes" rows="4" placeholder="How did you feel? Any achievements or challenges? Personal reflections...">{{ old('notes') }}</textarea>
-                @error('notes')
-                    <span class="error-message">{{ $message }}</span>
-                @enderror
+                <div class="form-group full-width">
+                    <label for="notes">
+                        <svg class="label-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                        </svg>
+                        Notes
+                    </label>
+                    <textarea name="notes" id="notes" class="form-control" rows="4" placeholder="How did you feel? Any achievements or challenges?">{{ old('notes') }}</textarea>
+                    @error('notes')
+                        <span class="error-message">{{ $message }}</span>
+                    @enderror
+                </div>
             </div>
         </div>
 
+        <!-- Form Actions -->
         <div class="form-actions">
-            <a href="{{ route('training-sessions.index') }}" class="btn btn-secondary">
-                <span>✕</span> Cancel
+            <a href="{{ route('training-sessions.index') }}" class="btn-secondary">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+                <span>Cancel</span>
             </a>
-            <button type="submit" class="btn btn-primary">
-                <span>✓</span> Log Session
+            <button type="submit" class="btn-primary">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                <span>Log Session</span>
             </button>
         </div>
     </form>
 </div>
-
 @endsection
 
 @section('extra-styles')
 <style>
-.form-page {
+/* Container */
+.form-container {
     max-width: 900px;
     margin: 0 auto;
+    padding: 2rem;
 }
 
+/* Page Header */
 .page-header {
-    margin-bottom: 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+    gap: 2rem;
+}
+
+.page-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 0.5rem 0;
+    letter-spacing: -0.02em;
+}
+
+.page-subtitle {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0;
 }
 
 .btn-back {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    color: rgba(255, 255, 255, 0.6);
+    padding: 0.75rem 1.25rem;
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 0.875rem;
     text-decoration: none;
-    font-size: 0.95rem;
-    margin-bottom: 1.5rem;
-    transition: color 0.3s ease;
+    transition: all 0.2s ease;
 }
 
 .btn-back:hover {
-    color: #00bfff;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.2);
 }
 
-.page-title {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 2.5rem;
-    font-weight: 900;
-    color: #00bfff;
-    text-shadow: 0 0 30px rgba(0, 191, 255, 0.6);
-    margin: 0 0 0.5rem 0;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-.title-icon {
-    font-size: 2.5rem;
-    filter: drop-shadow(0 0 10px rgba(0, 191, 255, 0.4));
-}
-
-.page-subtitle {
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 1.05rem;
-    margin: 0;
-}
-
+/* Form */
 .training-form {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    overflow: hidden;
 }
 
 .form-section {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(15px);
-    border: 1px solid rgba(0, 191, 255, 0.2);
-    border-radius: 20px;
-    padding: 2.5rem;
-    transition: all 0.3s ease;
+    padding: 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.form-section:hover {
-    border-color: rgba(0, 191, 255, 0.3);
-    box-shadow: 0 10px 30px rgba(0, 191, 255, 0.15);
+.form-section:last-of-type {
+    border-bottom: none;
 }
 
 .section-title {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
     color: #fff;
-    margin: 0 0 2rem 0;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding-bottom: 1rem;
-    border-bottom: 2px solid rgba(0, 191, 255, 0.2);
+    margin: 0 0 1.5rem 0;
 }
 
-.section-icon {
-    font-size: 1.75rem;
-    filter: drop-shadow(0 0 10px rgba(0, 191, 255, 0.3));
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
 }
 
 .form-group {
-    margin-bottom: 1.75rem;
+    display: flex;
+    flex-direction: column;
 }
 
-.form-group:last-child {
-    margin-bottom: 0;
-}
-
-.form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
+.form-group.full-width {
+    grid-column: 1 / -1;
 }
 
 label {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    color: #fff;
-    font-weight: 600;
-    font-size: 0.95rem;
-    margin-bottom: 0.75rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
 }
 
 .label-icon {
-    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.5);
+    flex-shrink: 0;
 }
 
-input[type="text"],
-input[type="date"],
-input[type="time"],
-input[type="number"],
-select,
-textarea {
-    width: 100%;
-    padding: 1rem 1.25rem;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 12px;
-    color: #fff;
-    font-size: 1rem;
-    font-family: inherit;
-    transition: all 0.3s ease;
+.required {
+    color: #ef4444;
 }
 
-input:focus,
-select:focus,
-textarea:focus {
-    outline: none;
-    border-color: #00bfff;
-    background: rgba(255, 255, 255, 0.12);
-    box-shadow: 0 0 0 3px rgba(0, 191, 255, 0.1);
-}
-
-input::placeholder,
-textarea::placeholder {
+.optional {
     color: rgba(255, 255, 255, 0.4);
+    font-weight: 400;
+    font-size: 0.75rem;
 }
 
-select {
+.form-control {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: #fff;
+    font-size: 0.9375rem;
+    font-family: inherit;
+    transition: all 0.2s ease;
+}
+
+.form-control:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.08);
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.form-control::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+select.form-control {
     cursor: pointer;
 }
 
-textarea {
+textarea.form-control {
     resize: vertical;
     min-height: 100px;
     line-height: 1.6;
@@ -354,96 +401,105 @@ textarea {
 .error-message {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    color: #fc8181;
-    font-size: 0.875rem;
+    gap: 0.375rem;
     margin-top: 0.5rem;
+    color: #ef4444;
+    font-size: 0.8125rem;
 }
 
 .error-message::before {
-    content: '⚠️';
-    font-size: 1rem;
-}
-
-.form-actions {
-    display: flex;
-    gap: 1rem;
-    justify-content: flex-end;
-    padding-top: 1rem;
-}
-
-.btn {
+    content: "!";
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    padding: 1rem 2rem;
-    border-radius: 12px;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    background: rgba(239, 68, 68, 0.15);
+    border-radius: 50%;
     font-weight: 700;
-    font-size: 1rem;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    border: none;
-    cursor: pointer;
-    text-decoration: none;
+    font-size: 0.75rem;
 }
 
-.btn span {
-    font-size: 1.2rem;
+/* Form Actions */
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    padding: 1.5rem 2rem;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.btn-primary,
+.btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.5rem;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, #00bfff 0%, #667eea 100%);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
-    box-shadow: 0 4px 15px rgba(0, 191, 255, 0.3);
-    border: 1px solid rgba(0, 191, 255, 0.3);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
 }
 
 .btn-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(0, 191, 255, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
 }
 
 .btn-secondary {
     background: rgba(255, 255, 255, 0.05);
-    color: rgba(255, 255, 255, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .btn-secondary:hover {
     background: rgba(255, 255, 255, 0.1);
-    color: white;
-    border-color: rgba(255, 255, 255, 0.3);
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.2);
 }
 
-.btn-logout {
-    display: flex;
-    align-items: center;
-    padding: 1rem 1.25rem;
-    color: rgba(255, 255, 255, 0.7);
-    background: rgba(245, 101, 101, 0.1);
-    border: 1px solid rgba(245, 101, 101, 0.2);
-    text-decoration: none;
-    border-radius: 12px;
-    transition: all 0.3s ease;
-    gap: 1rem;
-    cursor: pointer;
-    width: 100%;
-    font-size: 1rem;
-    font-weight: 600;
+.btn-primary svg,
+.btn-secondary svg {
+    flex-shrink: 0;
 }
 
-.btn-logout:hover {
-    background: rgba(245, 101, 101, 0.2);
-    color: white;
-    border-color: rgba(245, 101, 101, 0.4);
-}
-
+/* Responsive Design */
 @media (max-width: 768px) {
-    .form-row {
+    .form-container {
+        padding: 1rem;
+    }
+
+    .page-header {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .form-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .form-section {
         padding: 1.5rem;
+    }
+
+    .form-actions {
+        flex-direction: column-reverse;
+        padding: 1rem 1.5rem;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        width: 100%;
+        justify-content: center;
     }
 }
 </style>

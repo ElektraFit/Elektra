@@ -30,18 +30,25 @@ class TrainingSessionController extends Controller
     {
         $validated = $request->validate([
             'training_type' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'duration_minutes' => 'required|integer|min:1',
             'session_date' => 'required|date',
             'session_time' => 'required',
-            'intensity' => 'required|in:low,moderate,high',
+            'duration' => 'required|integer|min:1|max:480',
+            'intensity' => 'required|integer|min:1|max:10',
             'instructor_id' => 'nullable|exists:instructors,id',
             'notes' => 'nullable|string'
         ]);
 
-        $validated['user_id'] = Auth::id();
-
-        TrainingSession::create($validated);
+        // Map form fields to database fields
+        TrainingSession::create([
+            'user_id' => Auth::id(),
+            'instructor_id' => $validated['instructor_id'] ?? null,
+            'training_type' => $validated['training_type'],
+            'duration_minutes' => $validated['duration'],
+            'session_date' => $validated['session_date'],
+            'session_time' => $validated['session_time'],
+            'intensity' => $this->mapIntensityToEnum($validated['intensity']),
+            'notes' => $validated['notes'] ?? null,
+        ]);
 
         return redirect()->route('training-sessions.index')
             ->with('success', 'Training session logged successfully!');
@@ -67,16 +74,24 @@ class TrainingSessionController extends Controller
 
         $validated = $request->validate([
             'training_type' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'duration_minutes' => 'required|integer|min:1',
             'session_date' => 'required|date',
             'session_time' => 'required',
-            'intensity' => 'required|in:low,moderate,high',
+            'duration' => 'required|integer|min:1|max:480',
+            'intensity' => 'required|integer|min:1|max:10',
             'instructor_id' => 'nullable|exists:instructors,id',
             'notes' => 'nullable|string'
         ]);
 
-        $trainingSession->update($validated);
+        // Map form fields to database fields
+        $trainingSession->update([
+            'instructor_id' => $validated['instructor_id'] ?? null,
+            'training_type' => $validated['training_type'],
+            'duration_minutes' => $validated['duration'],
+            'session_date' => $validated['session_date'],
+            'session_time' => $validated['session_time'],
+            'intensity' => $this->mapIntensityToEnum($validated['intensity']),
+            'notes' => $validated['notes'] ?? null,
+        ]);
 
         return redirect()->route('training-sessions.index')
             ->with('success', 'Training session updated successfully!');
@@ -93,5 +108,19 @@ class TrainingSessionController extends Controller
 
         return redirect()->route('training-sessions.index')
             ->with('success', 'Training session deleted successfully!');
+    }
+
+    /**
+     * Map numeric intensity (1-10) to enum values (low, moderate, high)
+     */
+    private function mapIntensityToEnum(int $intensity): string
+    {
+        if ($intensity <= 3) {
+            return 'low';
+        } elseif ($intensity <= 7) {
+            return 'moderate';
+        } else {
+            return 'high';
+        }
     }
 }

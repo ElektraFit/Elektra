@@ -84,13 +84,7 @@
         <div class="summary-card protein-card">
             <div class="summary-icon">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M12 2v20"></path>
-                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-                    <circle cx="12" cy="12" r="1" fill="currentColor"></circle>
-                    <circle cx="8" cy="8" r="1" fill="currentColor"></circle>
-                    <circle cx="16" cy="8" r="1" fill="currentColor"></circle>
-                    <circle cx="8" cy="16" r="1" fill="currentColor"></circle>
-                    <circle cx="16" cy="16" r="1" fill="currentColor"></circle>
+                    <path d="M2 12c.6-2.2 1.8-4 3.5-4s2.9 1.8 3.5 4c.6 2.2 1.8 4 3.5 4s2.9-1.8 3.5-4c.6-2.2 1.8-4 3.5-4s2.9 1.8 3.5 4"></path>
                 </svg>
             </div>
             <div class="summary-content">

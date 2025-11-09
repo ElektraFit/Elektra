@@ -72,7 +72,9 @@
         <div class="summary-card calories-card">
             <div class="summary-icon">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                    <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                    <path d="M2 17l10 5 10-5"></path>
+                    <path d="M2 12l10 5 10-5"></path>
                 </svg>
             </div>
             <div class="summary-content">
@@ -84,7 +86,8 @@
         <div class="summary-card protein-card">
             <div class="summary-icon">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                    <path d="M6.5 6.5C8 5 9 3 11 3s4 1 5 3c1 2 1 5-1 8s-5 4-5 4-3-1-5-4-2-6-1-8z"></path>
+                    <path d="M12 3v18"></path>
                 </svg>
             </div>
             <div class="summary-content">
@@ -96,8 +99,8 @@
         <div class="summary-card carbs-card">
             <div class="summary-icon">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <path d="M12 6v12M6 12h12"></path>
+                    <path d="M3.5 13h17M3.5 13L2 9h20l-1.5 4M3.5 13l2 7h13l2-7"></path>
+                    <path d="M8 9V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v3"></path>
                 </svg>
             </div>
             <div class="summary-content">
@@ -109,8 +112,9 @@
         <div class="summary-card fat-card">
             <div class="summary-icon">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
-                    <line x1="7" y1="7" x2="7.01" y2="7"></line>
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <circle cx="12" cy="12" r="6"></circle>
+                    <circle cx="12" cy="12" r="2"></circle>
                 </svg>
             </div>
             <div class="summary-content">

@@ -4,39 +4,36 @@
 
 @section('sidebar-nav')
     <ul>
-        <x-nav-item href="#" :active="true" data-view="dashboard" icon="" label="Dashboard">
-            <span class="nav-icon" aria-hidden="true">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z" />
-                </svg>
-            </span>
+        <x-nav-item href="{{ route('dashboard') }}" :active="true" label="Dashboard">
+            <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="7" height="7"></rect>
+                <rect x="14" y="3" width="7" height="7"></rect>
+                <rect x="14" y="14" width="7" height="7"></rect>
+                <rect x="3" y="14" width="7" height="7"></rect>
+            </svg>
         </x-nav-item>
-        <x-nav-item href="#" data-view="training" icon="" label="Training Sessions">
-            <span class="nav-icon" aria-hidden="true">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="12" cy="12" r="10" />
-                    <path d="M8 12h4l3 5" />
-                    <path d="M12 7v5" />
-                </svg>
-            </span>
+        <x-nav-item href="{{ route('training-sessions.index') }}" label="Training Sessions">
+            <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="6" y="9" width="3" height="6"></rect>
+                <rect x="15" y="9" width="3" height="6"></rect>
+                <rect x="9" y="10.5" width="6" height="3"></rect>
+                <line x1="1" y1="12" x2="6" y2="12"></line>
+                <line x1="18" y1="12" x2="23" y2="12"></line>
+            </svg>
         </x-nav-item>
-        <x-nav-item href="{{ route('nutrition.index') }}" icon="" label="Nutrition">
-            <span class="nav-icon" aria-hidden="true">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M12 2C8 2 5 5 5 9c0 5 7 13 7 13s7-8 7-13c0-4-3-7-7-7z" />
-                    <circle cx="12" cy="9" r="3" />
-                </svg>
-            </span>
+        <x-nav-item href="{{ route('nutrition.index') }}" label="Nutrition">
+            <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M16 2c0 2-2 4-2 4" />
+                <path d="M19 7c-1.5-1-4-1.5-6 0-2-1.5-4.5-1-6 0-3 2-3 8 1 11 2 1.5 4 1 5 0 1 1 3 1.5 5 0 4-3 4-9 1-11z"></path>
+            </svg>
         </x-nav-item>
-        <x-nav-item href="#" data-view="instructors" icon="" label="Instructors">
-            <span class="nav-icon" aria-hidden="true">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="8" cy="8" r="4" />
-                    <circle cx="16" cy="8" r="4" />
-                    <path d="M2 20c0-3.3137 2.6863-6 6-6h0c3.3137 0 6 2.6863 6 6" />
-                    <path d="M14 14c3.3137 0 6 2.6863 6 6" />
-                </svg>
-            </span>
+        <x-nav-item href="#" label="Instructors">
+            <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
         </x-nav-item>
     </ul>
 @endsection

@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\InstructorProfileController;
+use App\Http\Controllers\PaymentController;
 
 Route::get('/', function () {
     return view('hero');
@@ -93,7 +94,16 @@ Route::middleware('auth')->group(function () {
     Route::post('/nutrition/search', [App\Http\Controllers\NutritionController::class, 'search'])->name('nutrition.search');
     Route::post('/nutrition/meals', [App\Http\Controllers\NutritionController::class, 'store'])->name('nutrition.store');
     Route::delete('/nutrition/meals/{meal}', [App\Http\Controllers\NutritionController::class, 'destroy'])->name('nutrition.destroy');
+    
+    // Payment routes
+    Route::get('/payment', [PaymentController::class, 'index'])->name('payment.index');
+    Route::post('/payment/mpesa', [PaymentController::class, 'processMpesa'])->name('payment.mpesa');
+    Route::post('/payment/card', [PaymentController::class, 'processCard'])->name('payment.card');
+    Route::get('/payment/success/{payment}', [PaymentController::class, 'success'])->name('payment.success');
 });
+
+// M-Pesa callback (no auth required for webhooks)
+Route::post('/payment/mpesa/callback', [PaymentController::class, 'mpesaCallback'])->name('payment.mpesa.callback');
 
 // Instructor routes
 Route::get('/instructor/login', fn() => view('instructor.login'))->name('instructor.login');

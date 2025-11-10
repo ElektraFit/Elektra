@@ -21,6 +21,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'membership_plan',
+        'membership_status',
+        'membership_start_date',
+        'membership_end_date',
     ];
 
     /**
@@ -43,7 +47,32 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'membership_start_date' => 'datetime',
+            'membership_end_date' => 'datetime',
         ];
+    }
+
+    /**
+     * Check if user has an active membership
+     */
+    public function hasActiveMembership(): bool
+    {
+        return $this->membership_status === 'active' 
+            && $this->membership_end_date 
+            && $this->membership_end_date->isFuture();
+    }
+
+    /**
+     * Activate membership after successful payment
+     */
+    public function activateMembership(string $plan, int $durationMonths = 1): void
+    {
+        $this->update([
+            'membership_plan' => $plan,
+            'membership_status' => 'active',
+            'membership_start_date' => now(),
+            'membership_end_date' => now()->addMonths($durationMonths),
+        ]);
     }
 
     public function trainingSessions()

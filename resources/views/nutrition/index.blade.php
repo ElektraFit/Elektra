@@ -3,7 +3,39 @@
 @section('title', 'Nutrition Tracker - ElektraFit')
 
 @section('sidebar-nav')
-    <x-navigation active="nutrition" />
+    <ul>
+        <x-nav-item href="{{ route('dashboard') }}" label="Dashboard">
+            <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="7" height="7"></rect>
+                <rect x="14" y="3" width="7" height="7"></rect>
+                <rect x="14" y="14" width="7" height="7"></rect>
+                <rect x="3" y="14" width="7" height="7"></rect>
+            </svg>
+        </x-nav-item>
+        <x-nav-item href="{{ route('training-sessions.index') }}" label="Training Sessions">
+            <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="6" y="9" width="3" height="6"></rect>
+                <rect x="15" y="9" width="3" height="6"></rect>
+                <rect x="9" y="10.5" width="6" height="3"></rect>
+                <line x1="1" y1="12" x2="6" y2="12"></line>
+                <line x1="18" y1="12" x2="23" y2="12"></line>
+            </svg>
+        </x-nav-item>
+        <x-nav-item href="{{ route('nutrition.index') }}" label="Nutrition" :active="true">
+            <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M16 2c0 2-2 4-2 4" />
+                <path d="M19 7c-1.5-1-4-1.5-6 0-2-1.5-4.5-1-6 0-3 2-3 8 1 11 2 1.5 4 1 5 0 1 1 3 1.5 5 0 4-3 4-9 1-11z"></path>
+            </svg>
+        </x-nav-item>
+        <x-nav-item href="#" label="Instructors">
+            <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+        </x-nav-item>
+    </ul>
 @endsection
 
 @section('logout-button')
@@ -13,7 +45,7 @@
 @section('content')
 <div class="nutrition-page">
     <div class="page-header">
-        <div class="header-content">
+        <div class="header-content center-text">
             <h1 class="page-title">Nutrition Tracker</h1>
             <p class="page-subtitle">Track your meals and monitor your daily nutrition intake</p>
         </div>
@@ -183,6 +215,14 @@
         margin-bottom: 2rem;
     }
 
+    .center-text {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.25rem;
+    }
+
     .page-title {
         font-size: 2.5rem;
         font-weight: 600;
@@ -193,6 +233,7 @@
     .page-subtitle {
         font-size: 1.125rem;
         color: rgba(255, 255, 255, 0.7);
+        text-align: center;
     }
 
     .nutrition-summary {

@@ -9,5 +9,5 @@
             <li>{{ $feature }}</li>
         @endforeach
     </ul>
-    <a href="{{ route('register') }}" class="membership-button">Choose {{ $title }}</a>
+    <a href="{{ route('register', ['plan' => strtolower($title)]) }}" class="membership-button">Choose {{ $title }}</a>
 </div>

@@ -4,16 +4,15 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\InstructorProfileController;
 use App\Http\Controllers\PaymentController;
 
 Route::get('/', function () {
     return view('hero');
-});
+})->name('welcome');
 
-// Public pages
-Route::get('/instructors', [InstructorController::class, 'index'])->name('instructors');
+// Public pages - Instructors are displayed in the dashboard
+// Route::get('/instructors', [InstructorController::class, 'index'])->name('instructors');
 
 // Authentication routes
 Route::get('/login', fn() => view('auth.login'))->name('login');
@@ -65,7 +64,10 @@ Route::get('/dashboard', function () {
     }
     
     // Get all instructors for the instructors view
-    $instructors = \App\Models\Instructor::orderBy('created_at', 'desc')->get();
+    $instructors = \App\Models\Instructor::orderBy('created_at', 'desc')->get()->map(function ($instructor) {
+        $instructor->short_bio = \Illuminate\Support\Str::limit($instructor->bio, 100);
+        return $instructor;
+    });
     $stats['instructors'] = $instructors;
     
     return view('dashboard', $stats);

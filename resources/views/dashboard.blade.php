@@ -39,18 +39,12 @@
 @endsection
 
 @section('logout-button')
-    <form method="POST" action="{{ route('logout') }}">
-        @csrf
-        <button type="submit" class="btn-logout">
-            <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-                <polyline points="16 17 21 12 16 7"></polyline>
-                <line x1="21" y1="12" x2="9" y2="12"></line>
-            </svg>
-            <span class="nav-text">Logout</span>
-        </button>
-    </form>
+    <x-logout-button />
 @endsection
+
+@push('styles')
+    @vite('resources/css/dashboard-views.css')
+@endpush
 
 @section('content')
     <!-- Dashboard View -->
@@ -63,10 +57,35 @@
         </div>
 
         <div class="stats-grid">
-            <x-dashboard-stat-card icon="♦" value="{{ $totalSessions }}" label="Total Sessions" />
-            <x-dashboard-stat-card icon="⏱" value="{{ $totalHours }}" label="Total Hours" />
-            <x-dashboard-stat-card icon="●" value="{{ $weekSessions }}" label="This Week's Sessions" />
-            <x-dashboard-stat-card icon="★" value="{{ $weekHours }}" label="This Week's Hours" />
+            <x-dashboard-stat-card value="{{ $totalSessions }}" label="Total Sessions">
+                <x-slot name="icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                    </svg>
+                </x-slot>
+            </x-dashboard-stat-card>
+            <x-dashboard-stat-card value="{{ $totalHours }}" label="Total Hours">
+                <x-slot name="icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                </x-slot>
+            </x-dashboard-stat-card>
+            <x-dashboard-stat-card value="{{ $weekSessions }}" label="This Week's Sessions">
+                <x-slot name="icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 20V10M12 20V4M6 20v-6"></path>
+                    </svg>
+                </x-slot>
+            </x-dashboard-stat-card>
+            <x-dashboard-stat-card value="{{ $weekHours }}" label="This Week's Hours">
+                <x-slot name="icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                    </svg>
+                </x-slot>
+            </x-dashboard-stat-card>
         </div>
 
         <div class="content-card">
@@ -140,8 +159,8 @@
                             <h3>{{ $instructor->name }}</h3>
                             <p class="specialization">{{ $instructor->specialization }}</p>
                             <p class="experience">{{ $instructor->years_of_experience }} years experience</p>
-                            @if($instructor->bio)
-                                <p class="bio">{{ Str::limit($instructor->bio, 100) }}</p>
+                            @if($instructor->short_bio)
+                                <p class="bio">{{ $instructor->short_bio }}</p>
                             @endif
                             <div class="instructor-stats">
                                 <span>★ 4.9</span>
@@ -453,3 +472,7 @@
         });
     </script>
 @endsection
+
+@push('scripts')
+    @vite('resources/js/dashboard-navigation.js')
+@endpush

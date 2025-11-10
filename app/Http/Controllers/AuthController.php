@@ -86,6 +86,14 @@ class AuthController extends Controller
         ]);
         Session::put('otp_type', 'registration');
         
+        // Capture selected membership plan from query parameter
+        if ($request->has('plan')) {
+            $plan = strtolower($request->input('plan'));
+            if (in_array($plan, ['basic', 'premium', 'elite'])) {
+                Session::put('selected_plan', $plan);
+            }
+        }
+        
         try {
             $this->sendOtp($request->email, $request->name);
             return redirect()->route('otp.verify')->with('status', 'OTP sent to your email for verification');
@@ -120,6 +128,11 @@ class AuthController extends Controller
                 \Auth::login($user);
                 Session::put('user_id', $user->id);
                 Session::forget(['otp', 'otp_email', 'otp_expires', 'otp_type', 'registration_data']);
+                
+                // If user selected a membership plan, redirect to payment
+                if (Session::has('selected_plan')) {
+                    return redirect()->route('payment.index')->with('status', 'Registration successful! Complete your payment to activate membership.');
+                }
                 
                 return redirect()->route('dashboard')->with('status', 'Registration successful!');
             } catch (\Exception $e) {

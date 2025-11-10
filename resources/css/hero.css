@@ -137,10 +137,10 @@ body {
 }
 
 .hero-overlay {
-    position: absolute;
+    position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, 0.6);
-    z-index: 1;
+    z-index: -1;
 }
 
 /* Navigation with Glassmorphism */
@@ -847,22 +847,28 @@ html {
 }
 /* Optimized Hero Section Classes */
 .hero-bg {
-    position: absolute;
+    position: fixed;
     inset: 0;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    z-index: -4;
+    pointer-events: none; /* never block inputs */
 }
 
 .hero-bg-overlay {
-    position: absolute;
+    position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.8);
+    background: linear-gradient(rgba(0,0,0,0.78), rgba(0,0,0,0.78)); /* slightly darker for readability */
+    z-index: -3;
+    pointer-events: none;
 }
 
 .hero-effects {
-    position: absolute;
+    position: fixed;
     inset: 0;
+    z-index: -2;
+    pointer-events: none;
 }
 
 .effect-orb {

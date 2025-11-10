@@ -4,10 +4,40 @@
 
 @section('sidebar-nav')
     <ul>
-        <x-nav-item href="#" icon="■" label="Dashboard" :active="true" data-view="dashboard" />
-        <x-nav-item href="#" icon="⚡" label="Training Sessions" data-view="training" />
-        <x-nav-item href="{{ route('nutrition.index') }}" icon="🍎" label="Nutrition" />
-        <x-nav-item href="#" icon="▲" label="Instructors" data-view="instructors" />
+        <x-nav-item href="#" :active="true" data-view="dashboard" icon="" label="Dashboard">
+            <span class="nav-icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z" />
+                </svg>
+            </span>
+        </x-nav-item>
+        <x-nav-item href="#" data-view="training" icon="" label="Training Sessions">
+            <span class="nav-icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M8 12h4l3 5" />
+                    <path d="M12 7v5" />
+                </svg>
+            </span>
+        </x-nav-item>
+        <x-nav-item href="{{ route('nutrition.index') }}" icon="" label="Nutrition">
+            <span class="nav-icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2C8 2 5 5 5 9c0 5 7 13 7 13s7-8 7-13c0-4-3-7-7-7z" />
+                    <circle cx="12" cy="9" r="3" />
+                </svg>
+            </span>
+        </x-nav-item>
+        <x-nav-item href="#" data-view="instructors" icon="" label="Instructors">
+            <span class="nav-icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="8" cy="8" r="4" />
+                    <circle cx="16" cy="8" r="4" />
+                    <path d="M2 20c0-3.3137 2.6863-6 6-6h0c3.3137 0 6 2.6863 6 6" />
+                    <path d="M14 14c3.3137 0 6 2.6863 6 6" />
+                </svg>
+            </span>
+        </x-nav-item>
     </ul>
 @endsection
 
@@ -51,7 +81,7 @@
     <!-- Training Sessions View -->
     <div id="training-view" class="content-view">
         <div class="page-header">
-            <div class="header-content">
+            <div class="header-content center-text">
                 <h1 class="page-title">My Training Sessions</h1>
                 <p class="page-subtitle">Track and manage your fitness journey</p>
             </div>
@@ -96,7 +126,7 @@
     <!-- Instructors View -->
     <div id="instructors-view" class="content-view">
         <div class="page-header">
-            <div class="header-content">
+            <div class="header-content center-text">
                 <h1 class="page-title">Our Expert Instructors</h1>
                 <p class="page-subtitle">Train with certified professionals dedicated to helping you achieve your fitness goals</p>
             </div>
@@ -163,9 +193,9 @@
             gap: 1.5rem;
         }
 
-        .header-content {
-            flex: 1;
-        }
+        .header-content { flex: 1; }
+        .center-text { text-align: center; margin: 0 auto; }
+        .welcome-section, .welcome-section * { text-align: center; }
 
         .page-title {
             font-size: 2.5rem;
@@ -180,6 +210,7 @@
             font-size: 1.125rem;
             color: rgba(255, 255, 255, 0.7);
             font-weight: 400;
+            text-align: center;
         }
 
         .btn-create {

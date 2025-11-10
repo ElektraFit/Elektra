@@ -16,7 +16,7 @@ class NavItem extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct($href, $icon, $label, $active = false)
+    public function __construct($href, $label, $icon = '', $active = false)
     {
         $this->href = $href;
         $this->icon = $icon;

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Carbon\Carbon;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\InstructorProfileController;
@@ -24,10 +25,14 @@ Route::post('/register', [AuthController::class, 'register'])->name('register.su
 
 // OTP routes
 Route::get('/otp/verify', function () {
-    if (!Session::has('otp') || Session::get('otp_expires') < now()) {
+    $otp = Session::get('otp');
+    $expiresAt = Carbon::make(Session::get('otp_expires'));
+
+    if (!$otp || !$expiresAt || Carbon::now()->greaterThan($expiresAt)) {
         Session::forget(['otp', 'otp_email', 'otp_expires', 'otp_type']);
         return redirect()->route('login')->with('error', 'OTP expired or not found');
     }
+
     return view('auth.otp');
 })->name('otp.verify');
 
@@ -132,10 +137,14 @@ Route::get('/instructor/register/complete', [AuthController::class, 'showInstruc
 Route::post('/instructor/register', [AuthController::class, 'instructorRegister'])->name('instructor.register.submit');
 
 Route::get('/instructor/otp', function () {
-    if (!Session::has('instructor_otp') || Session::get('instructor_otp_expires') < now()) {
+    $otp = Session::get('instructor_otp');
+    $expiresAt = Carbon::make(Session::get('instructor_otp_expires'));
+
+    if (!$otp || !$expiresAt || Carbon::now()->greaterThan($expiresAt)) {
         Session::forget(['instructor_otp', 'instructor_otp_email', 'instructor_otp_expires', 'instructor_otp_type']);
         return redirect()->route('instructor.login')->with('error', 'OTP expired or not found');
     }
+
     return view('instructor.otp');
 })->name('instructor.otp');
 

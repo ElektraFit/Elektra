@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\InstructorProfileController;
 use App\Http\Controllers\PaymentController;
 
@@ -11,8 +12,8 @@ Route::get('/', function () {
     return view('hero');
 })->name('welcome');
 
-// Public pages - Instructors are displayed in the dashboard
-// Route::get('/instructors', [InstructorController::class, 'index'])->name('instructors');
+// Public pages
+Route::get('/instructors', [InstructorController::class, 'index'])->name('instructors');
 
 // Authentication routes
 Route::get('/login', fn() => view('auth.login'))->name('login');
